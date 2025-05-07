@@ -27,8 +27,8 @@ const Home = () => {
       {loading ? (
         <p>Loading...</p>
       ) : session ? (
-        <div className="mx-auto w-1/2">
-          <p className="text-3xl font-bold"> Hello this is Home page</p>
+        <div className="mx-auto w-8/12 font-mono text-xl">
+          <p className="text-3xl font-bold">Home page</p>
           <div className=" w-full mt-28 ">
             <Image
               className="rounded-full "
@@ -46,7 +46,7 @@ const Home = () => {
           </div>
 
           <button
-            className="bg-white text-black p-2 rounded cursor-pointer"
+            className="bg-white text-black p-2 rounded cursor-pointer mt-5"
             onClick={handleSignOut}
           >
             Sign out
@@ -54,7 +54,7 @@ const Home = () => {
         </div>
       ) : (
         <button
-          className="bg-white text-black p-2 rounded cursor-pointer"
+          className="bg-white text-black p-2 rounded cursor-pointer mt-5"
           onClick={handleSignIn}
         >
           Sign in with Google
