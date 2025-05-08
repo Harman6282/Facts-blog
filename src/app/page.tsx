@@ -39,6 +39,7 @@ const Home = () => {
             />
 
             <div>
+              <p>Id: {session?.user?.id}</p>
               <p>Name: {session?.user?.name}</p>
               <p>Email: {session?.user?.email}</p>
               <p>Image: {session?.user?.image}</p>
