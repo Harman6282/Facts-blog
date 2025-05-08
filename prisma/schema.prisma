@@ -2,26 +2,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 model User {
   id            String          @id @default(cuid())
   name          String?
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  bio           String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
- 
+  blogs         Blog[] // Authored blogs
+  comments      Comment[] // Written comments
+  likes         Like[] // Liked blogs
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -34,33 +38,33 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
+
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -71,8 +75,54 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  coverImage  String?
+  tags        String[] // Only works with PostgreSQL
+  isPublished Boolean  @default(false)
+  readTime    String?
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  comments Comment[]
+  likes    Like[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id       String @id @default(cuid())
+  text     String
+  blogId   String
+  authorId String
+
+  blog   Blog @relation(fields: [blogId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id     String @id @default(cuid())
+  userId String
+  blogId String
+
+  user User @relation(fields: [userId], references: [id])
+  blog Blog @relation(fields: [blogId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, blogId]) // Prevent duplicate likes
 }
