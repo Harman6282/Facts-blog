@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const blogSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters'),
+  title: z.string().min(1, 'Title is required'),
   content: z.string().min(1, 'Content is required'),
   slug: z.string().min(1, 'Slug is required'),
   coverImage: z.string().url().optional(),

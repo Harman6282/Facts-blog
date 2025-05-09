@@ -21,21 +21,29 @@ const Page = () => {
   } = useForm<BlogFormData>({
     resolver: zodResolver(blogSchema),
   });
-  // ! for console.log(errors) 
+
+  // ! for console.log(errors)
 
   const onSubmit: SubmitHandler<BlogFormData> = (data: BlogFormData) => {
     console.log("console ho gya bc");
     console.log(data);
+
+
+    
   };
 
+
+
   return (
-    <div>
-      <h1 className="font-mono">Protected Page</h1>
+    <div className="w-1/2 mx-auto mt-10">
+      <h1 className="text-3xl font-bold">Protected Page</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label>Title</label>
           <input {...register("title")} className="border p-2 w-full" />
-          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
+          )}
         </div>
 
         <div>
@@ -63,6 +71,8 @@ const Page = () => {
           Post
         </Button>
       </form>
+
+      {}
     </div>
   );
 };
