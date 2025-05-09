@@ -48,3 +48,21 @@ export const POST = async (req: Request) => {
     blog,
   });
 };
+
+export const GET = async () => {
+  try {
+    const blogs = await prisma.blog.findMany();
+
+    return Response.json({
+      success: true,
+      message: "Blogs fetched successfully",
+      blogs,
+    });
+  } catch (error) {
+    return Response.json({
+      success: false,
+      message: "Failed to fetch blogs",
+      error,
+    });
+  }
+};

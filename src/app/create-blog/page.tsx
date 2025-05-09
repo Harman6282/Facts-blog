@@ -4,7 +4,6 @@ import { BlogFormData, blogSchema } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
@@ -28,10 +27,15 @@ const Page = () => {
   // ! console.log(errors)
 
   const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
-    const res = await axios.post("http://localhost:3000/api/blogs", data);
-    console.log(res.data);
-    toast.success(res.data.message);
-    reset();
+    try {
+      const res = await axios.post("http://localhost:3000/api/blogs", data);
+      console.log(res.data);
+      toast.success(res.data.message);
+      reset();
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to create blog");
+    }
   };
 
   return (
