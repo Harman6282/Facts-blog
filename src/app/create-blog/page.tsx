@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { toast } from "sonner";
 
 const Page = () => {
   const { status } = useSession();
@@ -18,21 +20,19 @@ const Page = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<BlogFormData>({
     resolver: zodResolver(blogSchema),
   });
 
   // ! for console.log(errors)
 
-  const onSubmit: SubmitHandler<BlogFormData> = (data: BlogFormData) => {
-    console.log("console ho gya bc");
-    console.log(data);
-
-
-    
+  const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
+    const res = await axios.post("http://localhost:3000/api/blogs", data);
+    console.log(res.data);
+    toast.success(res.data.message);
+    reset();
   };
-
-
 
   return (
     <div className="w-1/2 mx-auto mt-10">

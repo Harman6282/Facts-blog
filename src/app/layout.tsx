@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/providers/SessionWrapper";
 const inter = Inter({ subsets: ["latin"] });
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Facts Blog",
@@ -20,7 +21,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${inter.className} antialiased w-screen`}
       >
-        <SessionWrapper>{children}</SessionWrapper>
+        <SessionWrapper>
+          {children}
+          <Toaster />
+        </SessionWrapper>
       </body>
     </html>
   );
