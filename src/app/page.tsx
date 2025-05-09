@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
@@ -47,19 +48,19 @@ const Home = () => {
           </div>
 
           <button
-            className="bg-white text-black p-2 rounded cursor-pointer mt-5"
+            className="bg-white text-black border border-black p-2 px-5 rounded cursor-pointer mt-5 hover:scale-105 hover:bg-gray-200 transform transition duration-300"
             onClick={handleSignOut}
           >
             Sign out
           </button>
         </div>
       ) : (
-        <button
-          className="bg-white text-black p-2 rounded cursor-pointer mt-5"
+        <Button
+          className="bg-white text-black border border-black p-2 rounded cursor-pointer mt-5"
           onClick={handleSignIn}
         >
           Sign in with Google
-        </button>
+        </Button>
       )}
     </div>
   );

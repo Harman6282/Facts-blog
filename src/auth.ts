@@ -2,9 +2,9 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { JWT } from "next-auth/jwt";
-import { Session, User } from "next-auth";
+import { NextAuthOptions, Session, User } from "next-auth";
 
-export const authOptions = {
+export const authOptions : NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
   providers: [

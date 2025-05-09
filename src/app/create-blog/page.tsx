@@ -25,7 +25,7 @@ const Page = () => {
     resolver: zodResolver(blogSchema),
   });
 
-  // ! for console.log(errors)
+  // ! console.log(errors)
 
   const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
     const res = await axios.post("http://localhost:3000/api/blogs", data);
@@ -56,12 +56,6 @@ const Page = () => {
           {errors.content && (
             <p className="text-red-500">{errors.content.message}</p>
           )}
-        </div>
-
-        <div>
-          <label>Slug</label>
-          <input {...register("slug")} className="border p-2 w-full" />
-          {errors.slug && <p className="text-red-500">{errors.slug.message}</p>}
         </div>
 
         <Button
