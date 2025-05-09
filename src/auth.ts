@@ -1,6 +1,8 @@
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { JWT } from "next-auth/jwt";
+import { Session, User } from "next-auth";
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
@@ -12,7 +14,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       // This is called during sign-in
       if (user) {
         token.id = user.id;
@@ -20,10 +22,10 @@ export const authOptions = {
       return token;
     },
 
-    async session({ session, token }: any) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       // Attach user id to the session
       if (session.user) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
       }
       return session;
     },
