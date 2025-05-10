@@ -1,4 +1,4 @@
-// import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -8,7 +8,21 @@ export async function GET(
   try {
     const blogId = (await params).id;
 
-    return NextResponse.json(blogId);
+    const blog = await prisma.blog.findUnique({
+      where: { id: blogId },
+    });
+
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Blog not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, message: "Blog fetched successfully", blog },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching blog:", error);
     return NextResponse.json(
