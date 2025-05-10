@@ -3,11 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Home = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = React.useState(false);
+
+  const router = useRouter();
 
   console.log(session);
 
@@ -53,6 +56,14 @@ const Home = () => {
           >
             Sign out
           </button>
+          <Button
+            className="bg-white text-black border border-black p-2 px-5 rounded cursor-pointer mt-5 hover:scale-105 hover:bg-gray-200 transform transition duration-300"
+            onClick={() => {
+              router.push("/create-blog");
+            }}
+          >
+            Post Blog
+          </Button>
         </div>
       ) : (
         <Button
