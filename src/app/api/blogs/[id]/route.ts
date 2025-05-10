@@ -38,7 +38,21 @@ export async function DELETE(
 ) {
   const blogId = (await params).id;
   try {
-    return NextResponse.json(blogId);
+    const blog = await prisma.blog.delete({
+      where: { id: blogId },
+    });
+
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Blog not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, message: "Blog deleted successfully" },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error deleting blog:", error);
     return NextResponse.json(
