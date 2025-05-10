@@ -1,14 +1,13 @@
 import { prisma } from "@/lib/prisma";
 
 export const GET = async (
-  req: Request,
-  { params }: { params: { id: string } }
+  req: Request, context: {params: { id: string } }
 ) => {
   try {
-    const { id } = await params;
+    const blogId = context.params.id;
     const blog = await prisma.blog.findUnique({
       where: {
-        id: id,
+        id: blogId,
       },
     });
 
