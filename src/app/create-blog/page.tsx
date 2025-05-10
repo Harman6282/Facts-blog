@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
 import {Loader2} from "lucide-react"
+import { UploadButton } from "@/utils/uploadthing";
 
 const Page = () => {
   const { status } = useSession();
