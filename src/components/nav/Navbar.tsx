@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Searchbar from "./Searchbar";
-import NavRight from "./NavRight";
+import RightSidebar from "./RightSidebar";
 
 const Navbar = () => {
   return (
@@ -12,10 +12,12 @@ const Navbar = () => {
         </div>
       </Link>
 
+
       {/* Search Bar */}
       <Searchbar />
 
-      <NavRight />
+      {/* nav profile */}
+      <RightSidebar />
     </nav>
   );
 };
