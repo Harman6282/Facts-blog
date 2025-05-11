@@ -31,7 +31,7 @@ const Home = () => {
       {loading ? (
         <p>Loading...</p>
       ) : session ? (
-        <div className="mx-auto w-8/12 text-xl">
+        <div className="mx-auto w-screen text-xl">
           <p className="text-3xl font-bold">Home page</p>
           <div className=" w-full mt-28 ">
             <Image

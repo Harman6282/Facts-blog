@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionWrapper from "@/providers/SessionWrapper";
 const inter = Inter({ subsets: ["latin"] });
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/nav/Navbar";
 
 export const metadata: Metadata = {
   title: "Facts Blog",
@@ -22,6 +23,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased w-screen`}
       >
         <SessionWrapper>
+          <Navbar />
           {children}
           <Toaster />
         </SessionWrapper>
