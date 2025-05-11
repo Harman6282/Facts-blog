@@ -17,52 +17,57 @@ export default function RightSidebar() {
 
   return (
     <div>
-      <Drawer direction="right">
-        {/* Menu Toggle Button */}
-        <DrawerTrigger asChild className="hover:bg-transparent cursor-pointer">
-          <Button
-            className="fixed top-4 right-4 z-50 rounded-full"
-            variant={"ghost"}
+      {session && (
+        <Drawer direction="right">
+          {/* Menu Toggle Button */}
+          <DrawerTrigger
+            asChild
+            className="hover:bg-transparent cursor-pointer"
           >
-            {user?.image && (
-              <Image
-                src={user?.image}
-                alt={user?.name || "User Image"}
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            )}
-          </Button>
-        </DrawerTrigger>
+            <Button
+              className="fixed top-4 right-4 z-50 rounded-full"
+              variant={"ghost"}
+            >
+              {user?.image && (
+                <Image
+                  src={user?.image}
+                  alt={user?.name || "User Image"}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              )}
+            </Button>
+          </DrawerTrigger>
 
-        {/* Sidebar Content */}
-        <DrawerContent className="p-6 flex flex-col items-center space-y-4">
-          <h2 className="text-xl font-semibold">Sidebar</h2>
-          <DialogTitle className="sr-only">Sidebar Menu</DialogTitle>
+          {/* Sidebar Content */}
+          <DrawerContent className="p-6 flex flex-col items-center space-y-4">
+            <h2 className="text-xl font-semibold">Sidebar</h2>
+            <DialogTitle className="sr-only">Sidebar Menu</DialogTitle>
 
-          <Link href={"/profile"} className=" w-full">
+            <Link href={"/profile"} className=" w-full">
+              <DrawerClose asChild>
+                <Button
+                  variant="secondary"
+                  className="w-full cursor-pointer hover:bg-gray-200 transition duration-200"
+                >
+                  Profile
+                </Button>
+              </DrawerClose>
+            </Link>
+
             <DrawerClose asChild>
-              <Button
-                variant="secondary"
-                className="w-full cursor-pointer hover:bg-gray-200 transition duration-200"
-              >
-                Profile
+              <Button className="w-full" onClick={() => signOut()}>
+                Sign Out
               </Button>
             </DrawerClose>
-          </Link>
 
-          <DrawerClose asChild>
-            <Button className="w-full" onClick={() => signOut()}>
-              Sign Out
-            </Button>
-          </DrawerClose>
-
-          <DrawerClose asChild>
-            <Button variant="ghost">Close</Button>
-          </DrawerClose>
-        </DrawerContent>
-      </Drawer>
+            <DrawerClose asChild>
+              <Button variant="ghost">Close</Button>
+            </DrawerClose>
+          </DrawerContent>
+        </Drawer>
+      ) }
     </div>
   );
 }
