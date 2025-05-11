@@ -9,6 +9,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
 import {Loader2} from "lucide-react"
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const Page = () => {
   const { status } = useSession();
@@ -44,22 +47,23 @@ const Page = () => {
 
   return (
     <div className="w-1/2 mx-auto mt-10">
-      <h1 className="text-3xl font-bold">Protected Page</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <h1 className="text-3xl font-bold">Create Blog</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
         <div>
-          <label>Title</label>
-          <input {...register("title")} className="border p-2 w-full" />
+          <Label>Title</Label>
+          <Input {...register("title")} className="border border-black p-2 w-full mt-1" />
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>
           )}
         </div>
 
-        <div>
-          <label>Content</label>
-          <textarea
+        <div >
+          <Label htmlFor="content" >Content</Label>
+          <Textarea
             {...register("content")}
-            className="border p-2 w-full"
+            className="border p-2 mt-1 w-full border-black"
             rows={6}
+            id="content"
           />
           {errors.content && (
             <p className="text-red-500">{errors.content.message}</p>
