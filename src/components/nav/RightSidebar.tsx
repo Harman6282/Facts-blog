@@ -10,6 +10,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { LogOutIcon } from "lucide-react";
 
 export default function RightSidebar() {
   const session = useSession();
@@ -58,7 +59,7 @@ export default function RightSidebar() {
 
             <DrawerClose asChild>
               <Button className="w-full" onClick={() => signOut()}>
-                Sign Out
+              <LogOutIcon />  Sign Out
               </Button>
             </DrawerClose>
 
