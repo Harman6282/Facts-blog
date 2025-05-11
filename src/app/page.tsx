@@ -8,31 +8,24 @@ import React from "react";
 
 const Home = () => {
   const { data: session } = useSession();
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
 
   const router = useRouter();
 
   console.log(session);
 
   const handleSignIn = () => {
-    setLoading(true);
     signIn("google");
-    setLoading(false);
   };
 
   const handleSignOut = () => {
-    setLoading(true);
     signOut();
-    setLoading(false);
   };
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : session ? (
+       {session ? (
         <div className="mx-auto w-screen text-xl">
-          <p className="text-3xl font-bold">Home page</p>
           <div className=" w-full mt-28 ">
             <Image
               className="rounded-full "

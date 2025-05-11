@@ -67,7 +67,7 @@ export default function RightSidebar() {
             </DrawerClose>
           </DrawerContent>
         </Drawer>
-      ) }
+      )}
     </div>
   );
 }

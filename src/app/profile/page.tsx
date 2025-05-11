@@ -1,11 +1,17 @@
-import React from 'react'
+"use client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React from "react";
 
-const page = () => {
-  return (
-    <div>
-        Profile page
-    </div>
-  )
-}
+const Page = () => {
+  const session = useSession();
+  const router = useRouter();
 
-export default page
+  if (!session) {
+    router.push("/");
+  }
+
+  return <div>Profile page</div>;
+};
+
+export default Page;

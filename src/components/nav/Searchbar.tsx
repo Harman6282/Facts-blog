@@ -6,7 +6,7 @@ const Searchbar = () => {
       <input
         type="text"
         placeholder="Search..."
-        className="w-full px-4 py-2 border border-black rounded-full focus:outline-none "
+        className="w-1/2 px-4 py-2 border border-black rounded-full focus:outline-none "
       />
       <Button className="p-5 text-white rounded-full cursor-pointer">
         <SearchIcon size={24} />
