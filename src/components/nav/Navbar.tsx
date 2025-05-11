@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Searchbar from "./Searchbar";
 import RightSidebar from "./RightSidebar";
+import { getServerSession } from "next-auth";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await getServerSession();
+  const user = session?.user;
   return (
     <nav className="w-full bg-white shadow px-4 py-3 flex items-center justify-between">
       {/* Logo */}
@@ -12,12 +15,12 @@ const Navbar = () => {
         </div>
       </Link>
 
-
       {/* Search Bar */}
       <Searchbar />
 
       {/* nav profile */}
-      <RightSidebar />
+
+      {user ? <RightSidebar /> : <div>sign in</div>}
     </nav>
   );
 };

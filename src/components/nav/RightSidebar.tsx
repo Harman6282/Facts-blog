@@ -17,8 +17,8 @@ export default function RightSidebar() {
 
   return (
     <div>
-      {session && (
-        <Drawer direction="right">
+      {session ? (
+        <Drawer direction="right" >
           {/* Menu Toggle Button */}
           <DrawerTrigger
             asChild
@@ -67,6 +67,10 @@ export default function RightSidebar() {
             </DrawerClose>
           </DrawerContent>
         </Drawer>
+      ): (
+        <div>
+          Login
+        </div>
       )}
     </div>
   );
