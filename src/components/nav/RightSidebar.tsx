@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function RightSidebar() {
   const session = useSession();
@@ -40,13 +41,22 @@ export default function RightSidebar() {
           <h2 className="text-xl font-semibold">Sidebar</h2>
           <DialogTitle className="sr-only">Sidebar Menu</DialogTitle>
 
-          <Button variant="secondary" className="w-full">
-            Profile
-          </Button>
+          <Link href={"/profile"} className=" w-full">
+            <DrawerClose asChild>
+              <Button
+                variant="secondary"
+                className="w-full cursor-pointer hover:bg-gray-200 transition duration-200"
+              >
+                Profile
+              </Button>
+            </DrawerClose>
+          </Link>
 
-          <Button className="w-full" onClick={() => signOut()}>
-            Sign Out
-          </Button>
+          <DrawerClose asChild>
+            <Button className="w-full" onClick={() => signOut()}>
+              Sign Out
+            </Button>
+          </DrawerClose>
 
           <DrawerClose asChild>
             <Button variant="ghost">Close</Button>
