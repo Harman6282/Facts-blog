@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -14,7 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      {session ? (
+      {session && (
         <div className="mx-auto w-screen text-xl">
           <div className=" w-full mt-28 ">
             <Image
@@ -42,13 +41,6 @@ const Home = () => {
             Post Blog
           </Button>
         </div>
-      ) : (
-        <Link
-          href={"/signin"}
-          className="text-2xl font-bold cursor-pointer md:text-3xl"
-        >
-          <Button className="cursor-pointer">Sign in</Button>
-        </Link>
       )}
     </div>
   );

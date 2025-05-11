@@ -2,6 +2,7 @@ import Link from "next/link";
 import Searchbar from "./Searchbar";
 import RightSidebar from "./RightSidebar";
 import { getServerSession } from "next-auth";
+import { Button } from "../ui/button";
 
 const Navbar = async () => {
   const session = await getServerSession();
@@ -20,7 +21,16 @@ const Navbar = async () => {
 
       {/* nav profile */}
 
-      {user ? <RightSidebar /> : <div>sign in</div>}
+      {user ? (
+        <RightSidebar />
+      ) : (
+        <Link
+          href={"/signin"}
+          className="text-2xl font-bold cursor-pointer md:text-3xl"
+        >
+          <Button className="cursor-pointer">Sign in</Button>
+        </Link>
+      )}
     </nav>
   );
 };

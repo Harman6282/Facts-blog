@@ -1,17 +1,23 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Page = () => {
-  const session = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (!session) {
-    router.push("/");
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>; // optional loader
   }
 
-  return <div>Profile page</div>;
+  return session?.user && <div>This is Profile page</div>;
 };
 
 export default Page;

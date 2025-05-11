@@ -19,7 +19,7 @@ export default function RightSidebar() {
   return (
     <div>
       {session ? (
-        <Drawer direction="right" >
+        <Drawer direction="right">
           {/* Menu Toggle Button */}
           <DrawerTrigger
             asChild
@@ -33,8 +33,8 @@ export default function RightSidebar() {
                 <Image
                   src={user?.image}
                   alt={user?.name || "User Image"}
-                  width={40}
-                  height={40}
+                  width={35}
+                  height={35}
                   className="rounded-full"
                 />
               )}
@@ -59,7 +59,7 @@ export default function RightSidebar() {
 
             <DrawerClose asChild>
               <Button className="w-full" onClick={() => signOut()}>
-              <LogOutIcon />  Sign Out
+                <LogOutIcon /> Sign Out
               </Button>
             </DrawerClose>
 
@@ -68,10 +68,8 @@ export default function RightSidebar() {
             </DrawerClose>
           </DrawerContent>
         </Drawer>
-      ): (
-        <div>
-          Login
-        </div>
+      ) : (
+        <div>Login</div>
       )}
     </div>
   );
