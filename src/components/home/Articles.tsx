@@ -76,13 +76,13 @@ const Articles = () => {
           </Link>
           <p className="text-gray-600 line-clamp-2">{blog.content}</p>
           <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
-            <p>
+            <span>
               {" "}
               {new Date(blog.createdAt).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
               })}
-            </p>
+            </span>
             <p className="flex items-center gap-1">
               {" "}
               <Heart size={20} /> {blog.likes?.length || 0}

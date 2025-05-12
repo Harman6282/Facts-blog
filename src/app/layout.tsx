@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${inter.className} antialiased w-screen`}
+        className={`${inter.className} antialiased`}
       >
         <SessionWrapper>
           <Navbar />
