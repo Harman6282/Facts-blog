@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Heart, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -53,17 +54,22 @@ const Articles = () => {
     <div className=" w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4">
       {articles.map((blog) => (
         <div key={blog.id}>
-          <p className="text-sm text-gray-500 flex items-center gap-2 mb-3">
-            <Image
-              src={blog.author.image}
-              alt="user Image"
-              width={22}
-              height={22}
-              className="rounded-full"
-            />
-            <span className=" text-black "> {blog?.author.name} </span>
+          <p className="text-sm inline-block mb-2 text-gray-500 ">
+            <Link href={`/profile`} className="flex items-center gap-2">
+              <Image
+                src={blog.author.image}
+                alt="user Image"
+                width={22}
+                height={22}
+                className="rounded-full cursor-pointer"
+              />
+              <span className=" text-black cursor-pointer hover:underline">
+                {" "}
+                {blog?.author.name}{" "}
+              </span>
+            </Link>
           </p>
-          <h2 className="text-2xl font-bold">{blog.title}</h2>
+          <h2 className="text-2xl font-bold ">{blog.title}</h2>
           <p className="text-gray-600 line-clamp-2">{blog.content}</p>
           <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
             <p>
@@ -73,8 +79,15 @@ const Articles = () => {
                 day: "numeric",
               })}
             </p>
-            <p className="flex items-center gap-1"> <Heart size={20}/> {blog.likes?.length || 0}</p>
-            <p className="flex items-center gap-1"> <MessageCircle size={20} />{blog.comments?.length || 0}</p>
+            <p className="flex items-center gap-1">
+              {" "}
+              <Heart size={20} /> {blog.likes?.length || 0}
+            </p>
+            <p className="flex items-center gap-1">
+              {" "}
+              <MessageCircle size={20} />
+              {blog.comments?.length || 0}
+            </p>
           </div>
           <hr className="my-4" />
         </div>
