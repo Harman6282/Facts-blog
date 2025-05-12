@@ -26,7 +26,7 @@ export default function RightSidebar() {
             className="hover:bg-transparent cursor-pointer"
           >
             <Button
-              className="fixed top-4 right-4 z-50 rounded-full"
+              className="z-50 rounded-full"
               variant={"ghost"}
             >
               {user?.image && (

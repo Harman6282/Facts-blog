@@ -51,7 +51,7 @@ const Articles = () => {
   if (loading) return <p>Loading articles...</p>;
 
   return (
-    <div className=" w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4">
+    <div className="w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4 mt-4 ">
       {articles.map((blog) => (
         <div key={blog.id}>
           <p className="text-sm inline-block mb-2 text-gray-500 ">
@@ -61,7 +61,7 @@ const Articles = () => {
                 alt="user Image"
                 width={22}
                 height={22}
-                className="rounded-full cursor-pointer"
+                className="rounded-full cursor-pointer object-cover"
               />
               <span className=" text-black cursor-pointer hover:underline">
                 {" "}
