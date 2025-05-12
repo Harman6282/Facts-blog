@@ -10,7 +10,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, User } from "lucide-react";
 
 export default function RightSidebar() {
   const session = useSession();
@@ -25,10 +25,7 @@ export default function RightSidebar() {
             asChild
             className="hover:bg-transparent cursor-pointer"
           >
-            <Button
-              className="z-50 rounded-full"
-              variant={"ghost"}
-            >
+            <Button className="z-50 rounded-full " variant={"ghost"}>
               {user?.image && (
                 <Image
                   src={user?.image}
@@ -50,9 +47,9 @@ export default function RightSidebar() {
               <DrawerClose asChild>
                 <Button
                   variant="secondary"
-                  className="w-full cursor-pointer hover:bg-gray-200 transition duration-200"
+                  className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
                 >
-                  Profile
+                  <User /> Profile
                 </Button>
               </DrawerClose>
             </Link>
@@ -69,7 +66,7 @@ export default function RightSidebar() {
           </DrawerContent>
         </Drawer>
       ) : (
-        <div>Login</div>
+        <div className="text-2xl font-bold">Sign in</div>
       )}
     </div>
   );
