@@ -25,6 +25,7 @@ export default function RootLayout({
         <SessionWrapper>
           <Navbar />
           {children}
+
           <Toaster />
         </SessionWrapper>
       </body>
