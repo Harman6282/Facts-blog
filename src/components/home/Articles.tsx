@@ -69,7 +69,11 @@ const Articles = () => {
               </span>
             </Link>
           </p>
-          <h2 className="text-2xl font-bold ">{blog.title}</h2>
+          <Link href={`/blog/`}>
+            <h2 className="text-2xl font-bold cursor-pointer hover:underline ">
+              {blog.title}
+            </h2>
+          </Link>
           <p className="text-gray-600 line-clamp-2">{blog.content}</p>
           <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
             <p>
