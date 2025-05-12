@@ -51,7 +51,20 @@ export const POST = async (req: Request) => {
 
 export const GET = async () => {
   try {
-    const blogs = await prisma.blog.findMany();
+    const blogs = await prisma.blog.findMany({
+        include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true, // remove if you don't want to expose it
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc", // optional: fetch latest blogs first
+      },
+    });
 
     return Response.json({
       success: true,

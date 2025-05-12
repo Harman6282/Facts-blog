@@ -25,6 +25,7 @@ const Articles = () => {
       try {
         const res = await axios.get("http://localhost:3000/api/blogs");
         setArticles(res.data.blogs);
+        console.log(res.data.blogs);
         setLoading(false);
       } catch (error) {
         toast.error("Failed to fetch articles");
@@ -35,14 +36,15 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
+
   if (loading) return <p>Loading articles...</p>;
 
   return (
-    <div className="space-y-6 w-1/2 px-10 p-4">
+    <div className=" w-full px-6 md:px-10 p-4">
       {articles.map((blog) => (
         <div key={blog.id}>
           <h2 className="text-2xl font-bold">{blog.title}</h2>
-          <p className="text-gray-600">{blog.content}</p>
+          <p className="text-gray-600 line-clamp-2">{blog.content}</p>
           <p className="text-sm text-gray-500">By {blog.author}</p>
           <p className="text-sm text-gray-500">Published on {blog.createdAt}</p>
           <hr className="my-4" />
