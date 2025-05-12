@@ -1,7 +1,16 @@
 "use client";
 import axios from "axios";
+import { Heart, MessageCircle } from "lucide-react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+type Author = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+};
 
 type Article = {
   id: string;
@@ -9,10 +18,12 @@ type Article = {
   slug: string;
   content: string;
   coverImage: string;
+  likes: string[];
+  comments: string[];
   tags: string[];
   isPublished: boolean;
   authorId: string;
-  author: string;
+  author: Author;
   createdAt: string;
 };
 
@@ -36,17 +47,35 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
-
   if (loading) return <p>Loading articles...</p>;
 
   return (
-    <div className=" w-full px-6 md:px-10 p-4">
+    <div className=" w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4">
       {articles.map((blog) => (
         <div key={blog.id}>
+          <p className="text-sm text-gray-500 flex items-center gap-2 mb-3">
+            <Image
+              src={blog.author.image}
+              alt="user Image"
+              width={22}
+              height={22}
+              className="rounded-full"
+            />
+            <span className=" text-black "> {blog?.author.name} </span>
+          </p>
           <h2 className="text-2xl font-bold">{blog.title}</h2>
           <p className="text-gray-600 line-clamp-2">{blog.content}</p>
-          <p className="text-sm text-gray-500">By {blog.author}</p>
-          <p className="text-sm text-gray-500">Published on {blog.createdAt}</p>
+          <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
+            <p>
+              {" "}
+              {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
+            </p>
+            <p className="flex items-center gap-1"> <Heart size={20}/> {blog.likes?.length || 0}</p>
+            <p className="flex items-center gap-1"> <MessageCircle size={20} />{blog.comments?.length || 0}</p>
+          </div>
           <hr className="my-4" />
         </div>
       ))}

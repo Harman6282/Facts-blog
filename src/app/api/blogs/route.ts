@@ -57,7 +57,8 @@ export const GET = async () => {
           select: {
             id: true,
             name: true,
-            email: true, // remove if you don't want to expose it
+            email: true,
+            image: true,
           },
         },
       },
