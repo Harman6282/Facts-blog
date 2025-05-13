@@ -48,11 +48,13 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
+
+
   if (loading) return <p>Loading articles...</p>;
 
   return (
     <div className="w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4 mt-4 ">
-      {articles.map((blog) => (
+      {articles?.map((blog) => (
         <div key={blog.id}>
           <p className="text-sm inline-block mb-2 text-gray-500 ">
             <Link href={`/profile`} className="flex items-center gap-2">
@@ -69,7 +71,7 @@ const Articles = () => {
               </span>
             </Link>
           </p>
-          <Link href={`/blog/`}>
+          <Link href={`/blog/${blog.slug}`}>
             <h2 className="text-2xl font-bold cursor-pointer hover:underline ">
               {blog.title}
             </h2>
@@ -85,11 +87,11 @@ const Articles = () => {
             </span>
             <p className="flex items-center gap-1">
               {" "}
-              <Heart size={20} /> {blog.likes?.length || 0}
+              <Heart size={18} /> {blog.likes?.length || 0}
             </p>
             <p className="flex items-center gap-1">
               {" "}
-              <MessageCircle size={20} />
+              <MessageCircle fill="#6a7282" size={18} />
               {blog.comments?.length || 0}
             </p>
           </div>

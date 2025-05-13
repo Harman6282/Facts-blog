@@ -7,7 +7,7 @@ type WrapperProps = {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <div className="w-full max-w-screen-2xl mx-auto bg-stone-100">{children}</div>
+    <div className="w-full max-w-screen-2xl mx-auto">{children}</div>
   );
 };
 
