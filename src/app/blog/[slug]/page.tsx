@@ -2,9 +2,9 @@ import BlogDetailsPage from "@/app/blog/[slug]/BlogDetailsPage";
 import React from "react";
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const Page = async ({ params }: BlogPageProps) => {
