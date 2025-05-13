@@ -57,7 +57,7 @@ const Articles = () => {
       {articles?.map((blog) => (
         <div key={blog.id}>
           <p className="text-sm inline-block mb-2 text-gray-500 ">
-            <Link href={`/profile`} className="flex items-center gap-2">
+            <Link href={`/profile/${blog?.authorId}`} className="flex items-center gap-2">
               <Image
                 src={blog.author.image}
                 alt="user Image"

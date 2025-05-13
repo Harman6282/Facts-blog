@@ -1,41 +1,61 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const Page = () => {
-  const { data: session, status } = useSession();
+type userData = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  bio: string;
+};
+
+const Page = ({ params }: { params: { userId: string } }) => {
+  const { status } = useSession();
+  const [user, setUser] = useState<userData>();
   const router = useRouter();
+
+  const getUser = async () => {
+    const res = await axios.get(
+      `http://localhost:3000/api/user/${params.userId}`
+    );
+    console.log(res.data.user);
+    setUser(res?.data?.user);
+  };
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
+    } else {
+      getUser();
     }
   }, [status, router]);
 
-  if (status === "loading") {
+  if (!user) {
     return <div>Loading...</div>; // optional loader
   }
 
+  console.log(user);
+
   return (
-    session?.user && (
-      <div className="mx-auto w-screen text-xl">
-        <div className=" w-full mt-28 ">
+    user && (
+      <div className="flex flex-col items-start w-full p-6  text-xl">
+        <div className="">
           <Image
             className="rounded-full "
-            src={session?.user?.image || ""}
+            src={user?.image || ""}
             alt="Image"
             width={50}
             height={50}
           />
 
-          <div>
-            <p>Id: {session?.user?.id}</p>
-            <p>Name: {session?.user?.name}</p>
-            <p>Email: {session?.user?.email}</p>
-            <p>Image: {session?.user?.image}</p>
+          <div className="">
+            <p className="">Name: {user?.name}</p>
+            <p>Email: {user?.email}</p>
           </div>
         </div>
 
