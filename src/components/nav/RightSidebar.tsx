@@ -43,14 +43,16 @@ export default function RightSidebar() {
             <h2 className="text-xl font-semibold">Sidebar</h2>
             <DialogTitle className="sr-only">Sidebar Menu</DialogTitle>
 
-            <Link href={"/profile"} className=" w-full">
+            <Link href={`/profile/${user?.id}`} className=" w-full">
               <DrawerClose asChild>
-                <Button
-                  variant="secondary"
-                  className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
-                >
-                  <User /> Profile
-                </Button>
+                
+                  <Button
+                    variant="secondary"
+                    className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
+                  >
+                    <User /> Profile
+                  </Button>
+               
               </DrawerClose>
             </Link>
 

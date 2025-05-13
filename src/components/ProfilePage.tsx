@@ -29,8 +29,8 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   return !user ? (
     <div>Loading...</div>
   ) : (
-    <div className="flex flex-col items-start w-full p-6  text-xl">
-      <div className="">
+    <div className="w-full md:w-3/4 xl:h-2/3 mt-6 mx-auto bg-amber-100 p-6  text-xl">
+      <div className="flex items-start gap-4">
         <Image
           className="rounded-full "
           src={user?.image || ""}
@@ -40,8 +40,8 @@ const ProfilePage = ({ userId }: { userId: string }) => {
         />
 
         <div className="">
-          <p className="">Name: {user?.name}</p>
-          <p>Email: {user?.email}</p>
+          <p className="text-2xl font-semibold">{user?.name}</p>
+          <p className="text-gray-700 pt-2">{user?.bio}</p>
         </div>
       </div>
 
