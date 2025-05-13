@@ -22,6 +22,8 @@ model User {
   blogs         Blog[] // Authored blogs
   comments      Comment[] // Written comments
   likes         Like[] // Liked blogs
+  followers     Follow[]        @relation("Followers")
+  following     Follow[]        @relation("Following")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -126,4 +128,17 @@ model Like {
   createdAt DateTime @default(now())
 
   @@unique([userId, blogId]) // Prevent duplicate likes
+}
+
+model Follow {
+  id          String @id @default(cuid())
+  followerId  String
+  followingId String
+
+  follower  User @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([followerId, followingId]) // Prevent duplicate follows
 }
