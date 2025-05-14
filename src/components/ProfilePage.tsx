@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { FollowButton } from "./FollowButton";
 
 type userData = {
   id: string;
@@ -21,6 +21,9 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const [user, setUser] = useState<userData>();
   const router = useRouter();
   const { data: session } = useSession();
+  const [initiallyFollowing, setInitiallyFollowing] = useState(false);
+
+  const currentUserId = session?.user?.id;
 
   const getUser = async () => {
     const res = await axios.get(`http://localhost:3000/api/user/${userId}`);
@@ -28,19 +31,26 @@ const ProfilePage = ({ userId }: { userId: string }) => {
     console.log(res?.data?.user);
   };
 
+  const checkFollowStatus = async () => {
+    if (!currentUserId || !userId) return;
+    const res = await axios.get(`http://localhost:3000/api/follow/status`, {
+      params: {
+        currentUserId,
+        targetUserId: userId,
+      },
+    });
+    setInitiallyFollowing(res.data.isFollowing);
+  };
+
   useEffect(() => {
     getUser();
   }, [userId]);
 
-  const toggleFollow = async (targetUserId: string, currentUserId: string) => {
-    const res = await axios.post("http://localhost:3000/api/follow", {
-      currentUserId,
-      targetUserId,
-    });
-
-    toast.success(res.data.message);
-    console.log(res.data);
-  };
+  useEffect(() => {
+    if (currentUserId && userId) {
+      checkFollowStatus();
+    }
+  }, [currentUserId, userId]);
 
   return !user ? (
     <div>Loading...</div>
@@ -56,16 +66,16 @@ const ProfilePage = ({ userId }: { userId: string }) => {
             height={50}
           />
 
-          <div className="flex">
+          <div className="flex justify-between w-full">
             <p className="text-2xl font-semibold">{user?.name}</p>
-            <Button
-              className="ml-4 rounded-4xl cursor-pointer"
-              onClick={() =>
-                toggleFollow(user?.id, session?.user?.id as string)
-              }
-            >
-              Follow
-            </Button>
+
+            {currentUserId !== userId && (
+              <FollowButton
+                currentUserId={currentUserId as string}
+                targetUserId={userId}
+                initiallyFollowing={initiallyFollowing}
+              />
+            )}
           </div>
         </div>
         <p className="text-gray-700 pt-5">{user?.bio}</p>

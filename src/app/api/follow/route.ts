@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
         },
       });
       return NextResponse.json(
-        { success: true, message: "Unfollowed" },
+        { success: true, message: "Unfollowed" ,  isFollowing: false  },
         { status: 200 }
       );
     } else {
@@ -51,7 +51,7 @@ export const POST = async (req: NextRequest) => {
         },
       });
       return NextResponse.json(
-        { success: true, message: "Followed" },
+        { success: true, message: "Followed",  isFollowing: true  },
         { status: 200 }
       );
     }
