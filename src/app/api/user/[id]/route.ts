@@ -23,6 +23,16 @@ export const GET = async (
             createdAt: true,
           },
         },
+        followers: {
+          select: {
+            followerId: true,
+          },
+        },
+        following: {
+          select: {
+            followingId: true,
+          },
+        },
       },
     });
 
@@ -41,7 +51,6 @@ export const GET = async (
       message: "User fetched successfully",
       user,
     });
-    
   } catch (error) {
     console.log(error);
     return NextResponse.json(

@@ -7,11 +7,14 @@ export const POST = async (req: NextRequest) => {
     const { currentUserId, targetUserId } = body;
 
     if (!currentUserId || !targetUserId) {
-      return NextResponse.json({ error: "Missing user IDs." }, { status: 400 });
-    }
-    if (currentUserId === currentUserId) {
       return NextResponse.json(
-        { error: "Cannot follow yourself." },
+        { success: false, message: "Missing user IDs." },
+        { status: 400 }
+      );
+    }
+    if (currentUserId === targetUserId) {
+      return NextResponse.json(
+        { success: false, message: "Cannot follow yourself." },
         { status: 400 }
       );
     }
