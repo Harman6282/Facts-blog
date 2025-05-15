@@ -33,6 +33,12 @@ export const GET = async (
             followingId: true,
           },
         },
+        _count:{
+          select:{
+            followers: true,
+            following: true
+          }
+        }
       },
     });
 

@@ -15,6 +15,10 @@ type userData = {
   bio: string;
   follower: [];
   following: [];
+  _count: {
+    followers: number;
+    following: number;
+  };
 };
 
 const ProfilePage = ({ userId }: { userId: string }) => {
@@ -77,6 +81,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
               />
             )}
           </div>
+          <p> {user?._count.followers} Followers</p>
         </div>
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
