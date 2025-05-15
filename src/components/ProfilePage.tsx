@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FollowButton } from "./FollowButton";
+import { formatToMonthYear } from "@/utils/formatToDateMonth";
+import { CalendarRange } from "lucide-react";
 
 type userData = {
   id: string;
@@ -19,6 +21,7 @@ type userData = {
     followers: number;
     following: number;
   };
+  createdAt: Date;
 };
 
 const ProfilePage = ({ userId }: { userId: string }) => {
@@ -58,6 +61,8 @@ const ProfilePage = ({ userId }: { userId: string }) => {
     }
   }, [currentUserId, userId]);
 
+  const joinedDate = formatToMonthYear(new Date(user?.createdAt as Date));
+
   return !user ? (
     <div>Loading...</div>
   ) : (
@@ -85,7 +90,10 @@ const ProfilePage = ({ userId }: { userId: string }) => {
             )}
           </div>
         </div>
-        <p className="text-gray-700 pl-15"> {followersCount} Followers</p>
+        <div className="flex flex-col items-start gap-1 pl-15">
+          <p className="text-gray-700 "> {followersCount} Followers</p>
+           <p className="text-gray-700 flex"> <CalendarRange /> Joined {joinedDate}</p>
+        </div>
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
 
