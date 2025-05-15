@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
     },
   });
 
-      revalidatePath(`/profile/${targetUserId}`);
-  
+  revalidatePath(`/profile/${targetUserId}`);
 
   return NextResponse.json({ isFollowing: !!follow });
 }

@@ -34,7 +34,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
     const res = await axios.get(`http://localhost:3000/api/user/${userId}`);
     setUser(res?.data?.user);
     console.log(res?.data?.user);
-    setFollowersCount(res?.data?.user._count.followers)
+    setFollowersCount(res?.data?.user._count.followers);
   };
 
   const checkFollowStatus = async () => {
