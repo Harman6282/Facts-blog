@@ -90,9 +90,9 @@ const ProfilePage = ({ userId }: { userId: string }) => {
             )}
           </div>
         </div>
-        <div className="flex flex-col items-start gap-1 pl-15">
-          <p className="text-gray-700 "> {followersCount} Followers</p>
-           <p className="text-gray-700 flex"> <CalendarRange /> Joined {joinedDate}</p>
+        <div className="flex flex-col items-start gap-1 text-base">
+          <p className="  pl-15 font-bold "> {followersCount} <span className="text-gray-700 font-normal">Followers</span></p>
+           <p className="text-gray-700 flex items-center pl-8 gap-2"> <CalendarRange size={20} /> Joined {joinedDate}</p>
         </div>
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
