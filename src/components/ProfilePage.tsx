@@ -26,6 +26,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [initiallyFollowing, setInitiallyFollowing] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
 
   const currentUserId = session?.user?.id;
 
@@ -33,6 +34,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
     const res = await axios.get(`http://localhost:3000/api/user/${userId}`);
     setUser(res?.data?.user);
     console.log(res?.data?.user);
+    setFollowersCount(res?.data?.user._count.followers)
   };
 
   const checkFollowStatus = async () => {
@@ -78,11 +80,12 @@ const ProfilePage = ({ userId }: { userId: string }) => {
                 currentUserId={currentUserId as string}
                 targetUserId={userId}
                 initiallyFollowing={initiallyFollowing}
+                setFollowersCount={setFollowersCount}
               />
             )}
           </div>
-          <p> {user?._count.followers} Followers</p>
         </div>
+        <p className="text-gray-700 pl-15"> {followersCount} Followers</p>
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
 

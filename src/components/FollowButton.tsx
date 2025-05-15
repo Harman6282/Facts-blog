@@ -10,17 +10,20 @@ interface FollowButtonProps {
   currentUserId: string;
   targetUserId: string;
   initiallyFollowing: boolean;
+  setFollowersCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const FollowButton = ({
   currentUserId,
   targetUserId,
   initiallyFollowing,
+  setFollowersCount
 }: FollowButtonProps) => {
   const [isFollowing, setIsFollowing] = useState(initiallyFollowing);
   const [loading, setLoading] = useState(false);
 
   const handleFollowToggle = async () => {
+     setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1));
     try {
       setLoading(true);
       const res = await axios.post("http://localhost:3000/api/follow", {

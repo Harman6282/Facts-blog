@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -21,6 +22,9 @@ export async function GET(req: NextRequest) {
       },
     },
   });
+
+      revalidatePath(`/profile/${targetUserId}`);
+  
 
   return NextResponse.json({ isFollowing: !!follow });
 }
