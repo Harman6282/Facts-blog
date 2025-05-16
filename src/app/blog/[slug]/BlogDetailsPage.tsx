@@ -1,6 +1,7 @@
 "use client";
+import LikeButton from "@/components/LikeButton";
 import axios from "axios";
-import { Heart, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -47,24 +48,6 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
     blog && (
       <div className="w-full lg:w-3/4 mx-auto px-6 md:px-10 mt-6">
         <h1 className="text-4xl lg:text-4xl font-bold mb-4">{blog?.title}</h1>
-        <div className="text-sm text-gray-500 my-4 flex items-center gap-4">
-          <span>
-            {" "}
-            {new Date(blog?.createdAt).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })}
-          </span>
-          <p className="flex items-center gap-1">
-            {" "}
-            <Heart size={18} /> {blog?.likes?.length || 0}
-          </p>
-          <p className="flex items-center gap-1">
-            {" "}
-            <MessageCircle fill="#6a7282" size={18} />
-            {blog?.likes?.length || 0}
-          </p>
-        </div>
         <p className="text-sm inline-block mb-2 text-gray-500 ">
           <Link href={`/profile`} className="flex items-center gap-2">
             <Image
@@ -80,6 +63,21 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
             </span>
           </Link>
         </p>
+        <div className="text-sm text-gray-500 my-4 flex items-center gap-4">
+          <span>
+            {" "}
+            {new Date(blog?.createdAt).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
+          </span>
+         <LikeButton likeCount={blog?.likes?.length} />
+          <p className="flex items-center gap-1">
+            {" "}
+            <MessageCircle fill="#6a7282" size={18} />
+            {blog?.comments?.length || 0}
+          </p>
+        </div>
 
         <p className="text-gray-500 text-wrap pr-4 py-5">{blog.content}</p>
       </div>
