@@ -14,7 +14,8 @@ const LikeButton = ({
   blogId: string;
   initiallyLiked: boolean;
 }) => {
-  const [isLiked, setIsLiked] = useState(initiallyLiked);
+  const [isLiked, setIsLiked] = useState<boolean>(initiallyLiked);
+  const [likesCount, setlikesCount] = useState<number>(likeCount)
 
   const toggleLike = async () => {
     const res = await axios.post("http://localhost:3000/api/likeBlog", {
@@ -26,6 +27,7 @@ const LikeButton = ({
     toast.success(res?.data?.message);
     if (res.data.success) {
       setIsLiked((prev) => !prev);
+      setlikesCount((prev) => (isLiked ? prev - 1 : prev + 1));
     }
   };
 
@@ -44,7 +46,7 @@ const LikeButton = ({
           <Heart onClick={toggleLike} size={18} className="cursor-pointer" />
         )}
 
-        {likeCount || 0}
+        {likesCount || 0}
       </p>
     </>
   );
