@@ -20,6 +20,12 @@ export async function GET(
             bio: true,
           },
         },
+        _count: {
+          select:{
+            likes: true,
+            comments: true
+          }
+        }
       },
     });
 

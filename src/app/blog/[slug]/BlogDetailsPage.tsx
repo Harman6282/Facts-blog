@@ -2,6 +2,7 @@
 import LikeButton from "@/components/LikeButton";
 import axios from "axios";
 import { MessageCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -26,14 +27,18 @@ type BlogData = {
   author: Author;
   createdAt: string;
 };
+
 const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const [blog, setBlog] = useState<BlogData>();
-  console.log(slug);
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const [initiallyLiked, setInitiallyLiked] = useState(false)
   const fetchBlog = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/blogs/${slug}`);
 
       setBlog(res.data.blog);
+      setInitiallyLiked(res?.data?.blog?._count?.likes)
       console.log(res.data.blog);
     } catch (error) {
       console.log(error);
@@ -71,7 +76,12 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
               day: "numeric",
             })}
           </span>
-         <LikeButton likeCount={blog?.likes?.length} />
+          <LikeButton
+            likeCount={blog?.likes?.length}
+            userId={userId as string}
+            blogId={blog?.id}
+            initiallyLiked={initiallyLiked}
+          />
           <p className="flex items-center gap-1">
             {" "}
             <MessageCircle fill="#6a7282" size={18} />
