@@ -26,6 +26,10 @@ type BlogData = {
   authorId: string;
   author: Author;
   createdAt: string;
+  _count:{
+    likes: number;
+    comments: number;
+  }
 };
 
 const BlogDetailsPage = ({ slug }: { slug: string }) => {
@@ -77,7 +81,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
             })}
           </span>
           <LikeButton
-            likeCount={blog?.likes?.length}
+            likeCount={blog?._count?.likes}
             userId={userId as string}
             blogId={blog?.id}
             initiallyLiked={initiallyLiked}

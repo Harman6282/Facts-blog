@@ -12,7 +12,7 @@ const LikeButton = ({
   likeCount: number;
   userId: string;
   blogId: string;
-  initiallyLiked: boolean
+  initiallyLiked: boolean;
 }) => {
   const [isLiked, setIsLiked] = useState(initiallyLiked);
 
@@ -24,13 +24,14 @@ const LikeButton = ({
 
     console.log(res.data);
     toast.success(res?.data?.message);
-    setIsLiked((prev) => !prev);
+    if (res.data.success) {
+      setIsLiked((prev) => !prev);
+    }
   };
 
   return (
     <>
       <p className="flex items-center gap-1 ">
-        {" "}
         {isLiked ? (
           <Heart
             onClick={toggleLike}
@@ -42,6 +43,7 @@ const LikeButton = ({
         ) : (
           <Heart onClick={toggleLike} size={18} className="cursor-pointer" />
         )}
+
         {likeCount || 0}
       </p>
     </>
