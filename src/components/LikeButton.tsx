@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -15,14 +15,17 @@ const LikeButton = ({
   initiallyLiked: boolean;
 }) => {
   const [isLiked, setIsLiked] = useState<boolean>(initiallyLiked);
-  const [likesCount, setlikesCount] = useState<number>(likeCount)
+  const [likesCount, setlikesCount] = useState<number>(likeCount);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const toggleLike = async () => {
+    setIsLoading(true);
     const res = await axios.post("http://localhost:3000/api/likeBlog", {
       userId,
       blogId,
     });
 
+    setIsLoading(false);
     console.log(res.data);
     toast.success(res?.data?.message);
     if (res.data.success) {
@@ -34,7 +37,11 @@ const LikeButton = ({
   return (
     <>
       <p className="flex items-center gap-1 ">
-        {isLiked ? (
+        {isLoading ? (
+          <span>
+            <Loader2 className="animate-spin" />
+          </span>
+        ) : isLiked ? (
           <Heart
             onClick={toggleLike}
             size={18}
@@ -45,7 +52,6 @@ const LikeButton = ({
         ) : (
           <Heart onClick={toggleLike} size={18} className="cursor-pointer" />
         )}
-
         {likesCount || 0}
       </p>
     </>

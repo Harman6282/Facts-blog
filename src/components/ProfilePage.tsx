@@ -40,12 +40,6 @@ const ProfilePage = ({ userId }: { userId: string }) => {
     setFollowersCount(res?.data?.user._count.followers);
   };
 
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Checks if the current user is following the target user.
-   * @returns {void}
-   */
-/*******  15421c39-affc-4c7f-8063-32c1726a0831  *******/
   const checkFollowStatus = async () => {
     if (!currentUserId || !userId) return;
     const res = await axios.get(`http://localhost:3000/api/follow/status`, {

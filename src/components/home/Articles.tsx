@@ -37,7 +37,6 @@ const Articles = () => {
       try {
         const res = await axios.get("http://localhost:3000/api/blogs");
         setArticles(res.data.blogs);
-        console.log(res.data.blogs);
         setLoading(false);
       } catch (error) {
         toast.error("Failed to fetch articles");
