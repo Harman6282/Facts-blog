@@ -26,6 +26,10 @@ type Article = {
   authorId: string;
   author: Author;
   createdAt: string;
+  _count:{
+    likes: number;
+    comments: number;
+  }
 };
 
 const Articles = () => {
@@ -86,12 +90,12 @@ const Articles = () => {
             </span>
             <p className="flex items-center gap-1">
               {" "}
-              <Heart size={18} /> {blog.likes?.length || 0}
+              <Heart size={16} fill="#6a7282" /> {blog?._count?.likes || 0}
             </p>
             <p className="flex items-center gap-1">
               {" "}
-              <MessageCircle fill="#6a7282" size={18} />
-              {blog.comments?.length || 0}
+              <MessageCircle fill="#6a7282" size={16} />
+              {blog?._count?.comments || 0}
             </p>
           </div>
           <hr className="my-4" />

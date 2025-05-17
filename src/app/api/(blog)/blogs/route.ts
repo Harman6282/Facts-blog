@@ -61,6 +61,12 @@ export const GET = async () => {
             image: true,
           },
         },
+        _count:{
+          select:{
+            likes: true,
+            comments: true,
+          }
+        }
       },
       orderBy: {
         createdAt: "desc", // optional: fetch latest blogs first
