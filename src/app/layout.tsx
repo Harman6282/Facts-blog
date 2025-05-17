@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/nav/Navbar";
 import Wrapper from "@/components/Wrapper";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Facts Blog",
@@ -26,6 +27,7 @@ export default function RootLayout({
         <SessionWrapper>
           <Navbar />
           <Wrapper>{children}</Wrapper>
+          <Footer />
 
           <Toaster />
         </SessionWrapper>
