@@ -89,7 +89,7 @@ model Blog {
   title       String
   slug        String   @unique
   content     String
-  coverImage  String?
+  imageUrl  String?
   tags        String[] // Only works with PostgreSQL
   isPublished Boolean  @default(false)
   readTime    String?

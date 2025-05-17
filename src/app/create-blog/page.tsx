@@ -12,6 +12,7 @@ import {Loader2} from "lucide-react"
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import FileUpload from "@/components/FileUpload";
 
 const Page = () => {
   const { status } = useSession();
@@ -69,6 +70,8 @@ const Page = () => {
             <p className="text-red-500">{errors.content.message}</p>
           )}
         </div>
+
+        <FileUpload onSuccess={(data) => console.log(data)}/>
 
         <Button
           type="submit"
