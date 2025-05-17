@@ -18,7 +18,7 @@ type BlogData = {
   title: string;
   slug: string;
   content: string;
-  coverImage: string;
+  imageUrl: string;
   likes: string[];
   comments: string[];
   tags: string[];
@@ -26,23 +26,23 @@ type BlogData = {
   authorId: string;
   author: Author;
   createdAt: string;
-  _count:{
+  _count: {
     likes: number;
     comments: number;
-  }
+  };
 };
 
 const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const [blog, setBlog] = useState<BlogData>();
   const { data: session } = useSession();
   const userId = session?.user?.id;
-  const [initiallyLiked, setInitiallyLiked] = useState(false)
+  const [initiallyLiked, setInitiallyLiked] = useState(false);
   const fetchBlog = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/blogs/${slug}`);
 
       setBlog(res.data.blog);
-      setInitiallyLiked(res?.data?.blog?._count?.likes)
+      setInitiallyLiked(res?.data?.blog?._count?.likes);
       console.log(res.data.blog);
     } catch (error) {
       console.log(error);
@@ -55,9 +55,11 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
 
   return (
     blog && (
-      <div className="w-full lg:w-3/4 mx-auto px-6 md:px-10 mt-6">
-        <h1 className="text-4xl lg:text-4xl font-bold mb-4">{blog?.title}</h1>
-        <p className="text-sm inline-block mb-2 text-gray-500 ">
+      <div className="w-full lg:w-2/3 mx-auto px-6 md:px-10 mt-6">
+        <h1 className="text-4xl lg:text-[42px] font-bold mb-4 text-[#242424]">
+          {blog?.title}
+        </h1>
+        <p className="text-md inline-block my-2 text-gray-500 ">
           <Link href={`/profile`} className="flex items-center gap-2">
             <Image
               src={blog?.author?.image}
@@ -92,6 +94,8 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
             {blog?.comments?.length || 0}
           </p>
         </div>
+
+        <Image src={blog?.imageUrl} alt="blog image" width={750} height={400} />
 
         <p className="text-gray-500 text-wrap pr-4 py-5">{blog.content}</p>
       </div>

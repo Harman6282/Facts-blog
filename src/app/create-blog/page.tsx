@@ -74,7 +74,7 @@ const Page = () => {
           <Label htmlFor="content">Content</Label>
           <Textarea
             {...register("content")}
-            className="border p-2 mt-1 w-full border-black"
+            className="border p-2 mt-1 w-full border-black focus:outline-none focus:shadow-none"
             rows={6}
             id="content"
           />
@@ -90,8 +90,8 @@ const Page = () => {
             src={imageUrl}
             alt="preview"
             className="max-h-48 rounded border mt-2"
-            width={400}
-            height={300}
+            width={600}
+            height={500}
           />
         )}
         <Button
