@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import ArticlesShimmer from "../shimmer/ArticlesShimmer";
 
 type Author = {
   id: string;
@@ -52,7 +53,8 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
-  if (loading) return <p>Loading articles...</p>;
+
+  if (loading) return <ArticlesShimmer/>;
 
   return (
     <div className="w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4">
@@ -105,14 +107,14 @@ const Articles = () => {
           </div>
 
           {blog?.imageUrl && (
-            <div>
+            <Link href={`/blog/${blog.slug}`}>
               <Image
                 src={blog?.imageUrl}
                 alt="blog Img"
                 width={160}
                 height={107}
               ></Image>
-            </div>
+            </Link>
           )}
         </div>
       ))}
