@@ -74,7 +74,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
             </span>
           </Link>
         </p>
-        <div className="text-sm text-gray-500 my-4 flex items-center gap-4">
+        <div className="text-sm text-gray-500 my-5 mb-7 flex items-center gap-4">
           <span>
             {" "}
             {new Date(blog?.createdAt).toLocaleDateString("en-US", {
