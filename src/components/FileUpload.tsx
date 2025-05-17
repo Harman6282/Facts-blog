@@ -32,11 +32,11 @@ export default function FileUpload({
   return (
     <div className="space-y-2">
       <IKUpload
-        fileName="product-image.jpg"
+        fileName="blog-image.jpg"
         onError={onError}
         onSuccess={handleSuccess}
         onUploadStart={handleStartUpload}
-        className="file-input file-input-bordered w-full"
+        className="file-input file-input-bordered border border-black rounded-sm px-2 w-full cursor-pointer"
         validateFile={(file: File) => {
           // Validate file type and size
           const validTypes = ["image/jpeg", "image/png", "image/webp"];

@@ -7,6 +7,10 @@ export const blogSchema = z.object({
   tags: z.array(z.string()).optional(),
   isPublished: z.boolean().optional(),
   readTime: z.string().optional(),
+   imageUrl: z
+    .string()
+    .url("Invalid image URL")
+    .nonempty("Please upload an image").optional(),
 });
 
 export type BlogFormData = z.infer<typeof blogSchema>;

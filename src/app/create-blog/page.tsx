@@ -8,11 +8,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
-import {Loader2} from "lucide-react"
+import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import FileUpload from "@/components/FileUpload";
+import Image from "next/image";
 
 const Page = () => {
   const { status } = useSession();
@@ -26,11 +27,17 @@ const Page = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm<BlogFormData>({
     resolver: zodResolver(blogSchema),
   });
 
   // ! console.log(errors)
+
+  const handleUploadSuccess = (data: { url: string }) => {
+    setValue("imageUrl", data.url, { shouldValidate: true });
+  };
 
   const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
     try {
@@ -46,20 +53,25 @@ const Page = () => {
     }
   };
 
+  const imageUrl = watch("imageUrl");
+
   return (
     <div className="w-1/2 mx-auto mt-10">
       <h1 className="text-3xl font-bold">Create Blog</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
         <div>
           <Label>Title</Label>
-          <Input {...register("title")} className="border border-black p-2 w-full mt-1" />
+          <Input
+            {...register("title")}
+            className="border border-black p-2 w-full mt-1"
+          />
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>
           )}
         </div>
 
-        <div >
-          <Label htmlFor="content" >Content</Label>
+        <div>
+          <Label htmlFor="content">Content</Label>
           <Textarea
             {...register("content")}
             className="border p-2 mt-1 w-full border-black"
@@ -71,15 +83,24 @@ const Page = () => {
           )}
         </div>
 
-        <FileUpload onSuccess={(data) => console.log(data)}/>
+        <FileUpload onSuccess={handleUploadSuccess} />
 
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt="preview"
+            className="max-h-48 rounded border mt-2"
+            width={400}
+            height={300}
+          />
+        )}
         <Button
           type="submit"
           variant="default"
-          className=" px-4 py-2 rounded" 
+          className=" px-4 py-2 rounded"
           disabled={posting}
         >
-          {posting ?  <Loader2 className="animate-spin"/>: "Post"}
+          {posting ? <Loader2 className="animate-spin" /> : "Post"}
         </Button>
       </form>
 

@@ -14,7 +14,7 @@ export const POST = async (req: Request) => {
     });
   }
 
-  const { title, content }: { title: string; content: string } =
+  const { title, content, imageUrl }: { title: string; content: string, imageUrl: string } =
     await req.json();
 
   if (!title || !content) {
@@ -30,6 +30,7 @@ export const POST = async (req: Request) => {
     data: {
       title,
       content,
+      imageUrl,
       slug: slug as string,
       authorId: session?.user?.id as string,
     },
