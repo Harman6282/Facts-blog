@@ -26,10 +26,10 @@ type Article = {
   authorId: string;
   author: Author;
   createdAt: string;
-  _count:{
+  _count: {
     likes: number;
     comments: number;
-  }
+  };
 };
 
 const Articles = () => {
@@ -51,8 +51,6 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
-
-
   if (loading) return <p>Loading articles...</p>;
 
   return (
@@ -60,7 +58,10 @@ const Articles = () => {
       {articles?.map((blog) => (
         <div key={blog.id}>
           <p className="text-sm inline-block mb-2 text-gray-500 ">
-            <Link href={`/profile/${blog?.authorId}`} className="flex items-center gap-2">
+            <Link
+              href={`/profile/${blog?.authorId}`}
+              className="flex items-center gap-2"
+            >
               <Image
                 src={blog.author.image}
                 alt="user Image"
