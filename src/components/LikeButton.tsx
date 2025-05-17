@@ -20,7 +20,7 @@ const LikeButton = ({
 
   const toggleLike = async () => {
     setIsLoading(true);
-    const res = await axios.post("http://localhost:3000/api/likeBlog", {
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/likeBlog`, {
       userId,
       blogId,
     });

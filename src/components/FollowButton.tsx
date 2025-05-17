@@ -26,7 +26,7 @@ export const FollowButton = ({
     setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1));
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/api/follow", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/follow`, {
         currentUserId,
         targetUserId,
       });

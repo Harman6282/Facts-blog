@@ -39,7 +39,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const [initiallyLiked, setInitiallyLiked] = useState(false);
   const fetchBlog = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/blogs/${slug}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`);
 
       setBlog(res.data.blog);
       setInitiallyLiked(res?.data?.blog?._count?.likes);

@@ -34,7 +34,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const currentUserId = session?.user?.id;
 
   const getUser = async () => {
-    const res = await axios.get(`http://localhost:3000/api/user/${userId}`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${userId}`);
     setUser(res?.data?.user);
     console.log(res?.data?.user);
     setFollowersCount(res?.data?.user._count.followers);
@@ -42,7 +42,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
 
   const checkFollowStatus = async () => {
     if (!currentUserId || !userId) return;
-    const res = await axios.get(`http://localhost:3000/api/follow/status`, {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/status`, {
       params: {
         currentUserId,
         targetUserId: userId,

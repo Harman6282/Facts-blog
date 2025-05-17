@@ -42,7 +42,7 @@ const Page = () => {
   const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
     try {
       setPosting(true);
-      const res = await axios.post("http://localhost:3000/api/blogs", data);
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, data);
       console.log(res.data);
       toast.success(res.data.message);
       setPosting(false);

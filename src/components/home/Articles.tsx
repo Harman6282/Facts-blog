@@ -39,7 +39,7 @@ const Articles = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/blogs");
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`);
         setArticles(res.data.blogs);
         setLoading(false);
         console.log(res.data.blogs);
