@@ -10,11 +10,12 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { LogOutIcon, User } from "lucide-react";
+import { LogOutIcon, Plus, User } from "lucide-react";
 
 export default function RightSidebar() {
   const session = useSession();
   const user = session?.data?.user;
+
 
   return (
     <div>
@@ -45,14 +46,22 @@ export default function RightSidebar() {
 
             <Link href={`/profile/${user?.id}`} className=" w-full">
               <DrawerClose asChild>
-                
-                  <Button
-                    variant="secondary"
-                    className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
-                  >
-                    <User /> Profile
-                  </Button>
-               
+                <Button
+                  variant="secondary"
+                  className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
+                >
+                  <User /> Profile
+                </Button>
+              </DrawerClose>
+            </Link>
+            <Link href={`/create-blog`} className=" w-full">
+              <DrawerClose asChild>
+                <Button
+                  variant="secondary"
+                  className="w-full cursor-pointer hover:bg-gray-200  transition duration-200"
+                >
+                <Plus />   Post Blog
+                </Button>
               </DrawerClose>
             </Link>
 

@@ -1,9 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FollowButton } from "./FollowButton";
 import { formatToMonthYear } from "@/utils/formatToDateMonth";
@@ -26,7 +24,6 @@ type userData = {
 
 const ProfilePage = ({ userId }: { userId: string }) => {
   const [user, setUser] = useState<userData>();
-  const router = useRouter();
   const { data: session } = useSession();
   const [initiallyFollowing, setInitiallyFollowing] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
@@ -97,14 +94,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
 
-      <Button
-        className="bg-white text-black border border-black p-2 px-5 rounded cursor-pointer mt-5 hover:scale-105 hover:bg-gray-200 transform transition duration-300"
-        onClick={() => {
-          router.push("/create-blog");
-        }}
-      >
-        Post Blog
-      </Button>
+      
     </div>
   );
 };
