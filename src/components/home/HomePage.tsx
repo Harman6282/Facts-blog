@@ -1,10 +1,14 @@
 import React from "react";
 import Articles from "./Articles";
+import UsersSuggestions from "../whoToFollow/UsersSuggestions";
 
 const HomePage = () => {
   return (
-    <div className="w-full mx-auto xl:w-[90%]">
+    <div className="w-full flex  mx-auto xl:w-[90%]">
       <Articles />
+      <div className="hidden lg:block">
+        <UsersSuggestions />
+      </div>
     </div>
   );
 };
