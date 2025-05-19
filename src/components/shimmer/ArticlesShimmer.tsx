@@ -1,6 +1,6 @@
 const ArticlesShimmer = () => {
  return (
-    <div className="max-w-2xl  p-4 ml-8 animate-pulse">
+    <div className="max-w-2xl w-full lg:w-1/2 mx-auto  p-4 ml-8 animate-pulse">
       {/* Post 1 */}
       <div className="mb-8 p-3 bg-white rounded-lg shadow-md">
         <div className="h-4 bg-gray-300 rounded w-1/4 mb-4"></div>

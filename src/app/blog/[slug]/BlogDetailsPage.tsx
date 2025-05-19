@@ -1,5 +1,6 @@
 "use client";
 import LikeButton from "@/components/LikeButton";
+import BlogDetailsShimmer from "@/components/shimmer/BlogDetailsShimmer";
 import axios from "axios";
 import { MessageCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -37,6 +38,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const [initiallyLiked, setInitiallyLiked] = useState(false);
+  const [isLoading , setIsLoading] = useState(true)
   const fetchBlog = async () => {
     try {
       const res = await axios.get(
@@ -44,6 +46,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
       );
 
       setBlog(res.data.blog);
+      setIsLoading(false);
       setInitiallyLiked(res?.data?.blog?._count?.likes);
       console.log(res.data.blog);
     } catch (error) {
@@ -54,6 +57,8 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   useEffect(() => {
     fetchBlog();
   }, [slug]);
+
+  if(isLoading) return <BlogDetailsShimmer />
 
   return (
     blog && (
