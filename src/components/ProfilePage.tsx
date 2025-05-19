@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { FollowButton } from "./FollowButton";
 import { formatToMonthYear } from "@/utils/formatToDateMonth";
 import { CalendarRange } from "lucide-react";
+import ShimmerProfile from "./shimmer/ShimmerProfile";
 
 type userData = {
   id: string;
@@ -61,7 +62,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const joinedDate = formatToMonthYear(new Date(user?.createdAt as Date));
 
   return !user ? (
-    <div>Loading...</div>
+    <ShimmerProfile />
   ) : (
     <div className="w-full md:w-3/4 xl:h-2/3 mt-6 mx-auto p-6  text-xl">
       <div className="">
