@@ -40,7 +40,9 @@ const Articles = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`
+        );
         setArticles(res.data.blogs);
         setLoading(false);
         console.log(res.data.blogs);
@@ -53,8 +55,7 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
-
-  if (loading) return <ArticlesShimmer/>;
+  if (loading) return <ArticlesShimmer />;
 
   return (
     <div className="w-full md:w-3/4 lg:w-2/3 px-6 md:px-10 p-4">
@@ -83,27 +84,28 @@ const Articles = () => {
               <h2 className="text-2xl font-bold cursor-pointer hover:underline ">
                 {blog.title}
               </h2>
+
+              <p className="text-gray-600 line-clamp-2">{blog.content}</p>
+              <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
+                <span>
+                  {" "}
+                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+                <p className="flex items-center gap-1">
+                  {" "}
+                  <Heart size={16} fill="#6a7282" /> {blog?._count?.likes || 0}
+                </p>
+                <p className="flex items-center gap-1">
+                  {" "}
+                  <MessageCircle fill="#6a7282" size={16} />
+                  {blog?._count?.comments || 0}
+                </p>
+              </div>
+              <hr className="my-4" />
             </Link>
-            <p className="text-gray-600 line-clamp-2">{blog.content}</p>
-            <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
-              <span>
-                {" "}
-                {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-              <p className="flex items-center gap-1">
-                {" "}
-                <Heart size={16} fill="#6a7282" /> {blog?._count?.likes || 0}
-              </p>
-              <p className="flex items-center gap-1">
-                {" "}
-                <MessageCircle fill="#6a7282" size={16} />
-                {blog?._count?.comments || 0}
-              </p>
-            </div>
-            <hr className="my-4" />
           </div>
 
           {blog?.imageUrl && (
