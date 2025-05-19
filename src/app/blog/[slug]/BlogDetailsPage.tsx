@@ -67,7 +67,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
           {blog?.title}
         </h1>
         <p className="text-md inline-block my-2 text-gray-500 ">
-          <Link href={`/profile`} className="flex items-center gap-2">
+          <Link href={`/profile/${blog?.author?.id}`} className="flex items-center gap-2">
             <Image
               src={blog?.author?.image}
               alt="user Image"
