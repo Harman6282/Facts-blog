@@ -1,4 +1,3 @@
-// components/TipTapEditor.tsx
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -6,6 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Button } from "@/components/ui/button"; // use your own styled buttons
+import { Bold, Heading2, Italic, List } from "lucide-react";
 
 export default function TipTapEditor({
   content,
@@ -37,7 +37,7 @@ export default function TipTapEditor({
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "bg-black text-white" : ""}
         >
-          Bold
+         <Bold />
         </Button>
         <Button
           variant="outline"
@@ -45,7 +45,7 @@ export default function TipTapEditor({
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "bg-black text-white" : ""}
         >
-          Italic
+         <Italic /> 
         </Button>
         <Button
           variant="outline"
@@ -53,7 +53,7 @@ export default function TipTapEditor({
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "bg-black text-white" : ""}
         >
-          Bullet List
+         <List /> 
         </Button>
         <Button
           variant="outline"
@@ -61,7 +61,7 @@ export default function TipTapEditor({
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={editor.isActive("heading", { level: 2 }) ? "bg-black text-white" : ""}
         >
-          H2
+         <Heading2 /> 
         </Button>
       </div>
 
