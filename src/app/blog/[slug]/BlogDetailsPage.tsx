@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 
 type Author = {
   id: string;
@@ -38,7 +39,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const [initiallyLiked, setInitiallyLiked] = useState(false);
-  const [isLoading , setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const fetchBlog = async () => {
     try {
       const res = await axios.get(
@@ -58,7 +59,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
     fetchBlog();
   }, [slug]);
 
-  if(isLoading) return <BlogDetailsShimmer />
+  if (isLoading) return <BlogDetailsShimmer />;
 
   return (
     blog && (
@@ -67,7 +68,10 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
           {blog?.title}
         </h1>
         <p className="text-md inline-block my-2 text-gray-500 ">
-          <Link href={`/profile/${blog?.author?.id}`} className="flex items-center gap-2">
+          <Link
+            href={`/profile/${blog?.author?.id}`}
+            className="flex items-center gap-2"
+          >
             <Image
               src={blog?.author?.image}
               alt="user Image"
@@ -104,7 +108,10 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
 
         <Image src={blog?.imageUrl} alt="blog image" width={750} height={400} />
 
-        <p className="text-gray-500 text-wrap pr-4 py-5">{blog.content}</p>
+        <div
+          className="prose max-w-none text-gray-700 py-5"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
+        />
       </div>
     )
   );

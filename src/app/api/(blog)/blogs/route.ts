@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import slugify from "slugify";
 import { nanoid } from "nanoid";
 import { prisma } from "@/lib/prisma";
+import sanitizeHtml from "sanitize-html";
 
 export const POST = async (req: Request) => {
   const session = await getServerSession(authOptions);
@@ -24,12 +25,21 @@ export const POST = async (req: Request) => {
     });
   }
 
+   const sanitizedContent = sanitizeHtml(content, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt"],
+    },
+    allowedSchemes: ["data", "http", "https"],
+  });
+
   const slug = slugify(title, { lower: true }) + "-" + nanoid(10);
 
   const blog = await prisma.blog.create({
     data: {
       title,
-      content,
+      content: sanitizedContent,
       imageUrl,
       slug: slug as string,
       authorId: session?.user?.id as string,

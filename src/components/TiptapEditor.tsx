@@ -1,32 +1,73 @@
-'use client';
+// components/TipTapEditor.tsx
+"use client";
 
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import { useEffect } from 'react';
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
+import { Button } from "@/components/ui/button"; // use your own styled buttons
 
-type Props = {
+export default function TipTapEditor({
+  content,
+  onChange,
+}: {
   content: string;
-  onChange: (value: string) => void;
-};
-
-export default function TiptapEditor({ content, onChange }: Props) {
+  onChange: (html: string) => void;
+}) {
   const editor = useEditor({
-    extensions: [StarterKit],
-    content: content,
-    onUpdate: ({ editor }) => {
+    extensions: [
+      StarterKit,
+      Image,
+      Link.configure({ openOnClick: false }),
+    ],
+    content,
+    onUpdate({ editor }) {
       onChange(editor.getHTML());
     },
   });
 
-  useEffect(() => {
-    if (editor && content !== editor.getHTML()) {
-      editor.commands.setContent(content);
-    }
-  }, [content, editor]);
+  if (!editor) return null;
 
   return (
-    <div className="border border-black p-2 min-h-[200px] rounded">
-      <EditorContent editor={editor} />
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant="outline"
+           type="button" 
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className={editor.isActive("bold") ? "bg-black text-white" : ""}
+        >
+          Bold
+        </Button>
+        <Button
+          variant="outline"
+           type="button" 
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          className={editor.isActive("italic") ? "bg-black text-white" : ""}
+        >
+          Italic
+        </Button>
+        <Button
+          variant="outline"
+           type="button" 
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive("bulletList") ? "bg-black text-white" : ""}
+        >
+          Bullet List
+        </Button>
+        <Button
+          variant="outline"
+           type="button" 
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          className={editor.isActive("heading", { level: 2 }) ? "bg-black text-white" : ""}
+        >
+          H2
+        </Button>
+      </div>
+
+      <div className="border border-black p-2 rounded min-h-[150px]">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }

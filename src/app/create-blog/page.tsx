@@ -7,13 +7,13 @@ import { redirect } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FileUpload from "@/components/FileUpload";
 import Image from "next/image";
-import TiptapEditor from "@/components/TiptapEditor";
+import TipTapEditor from "@/components/TiptapEditor";
 
 const Page = () => {
   const { status } = useSession();
@@ -21,6 +21,7 @@ const Page = () => {
     redirect("/");
   }
   const [posting, setPosting] = useState(false);
+  const [editorContent, setEditorContent] = useState("");
 
   const {
     register,
@@ -33,6 +34,9 @@ const Page = () => {
     resolver: zodResolver(blogSchema),
   });
 
+  useEffect(() => {
+    setValue("content", editorContent); // update RHF form
+  }, [editorContent]);
   // ! console.log(errors)
 
   const handleUploadSuccess = (data: { url: string }) => {
@@ -75,12 +79,10 @@ const Page = () => {
 
         <div>
           <Label htmlFor="content">Content</Label>
-          <TiptapEditor
-            content={watch("content") || ""}
-            onChange={(html: string) =>
-              setValue("content", html, { shouldValidate: true })
-            }
-          />
+          <TipTapEditor content="" onChange={setEditorContent} />
+          {errors.content && (
+            <p className="text-red-500">{errors.content.message}</p>
+          )}
           {errors.content && (
             <p className="text-red-500">{errors.content.message}</p>
           )}
