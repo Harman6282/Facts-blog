@@ -10,10 +10,10 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import FileUpload from "@/components/FileUpload";
 import Image from "next/image";
+import TiptapEditor from "@/components/TiptapEditor";
 
 const Page = () => {
   const { status } = useSession();
@@ -42,7 +42,10 @@ const Page = () => {
   const onSubmit: SubmitHandler<BlogFormData> = async (data: BlogFormData) => {
     try {
       setPosting(true);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, data);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`,
+        data
+      );
       console.log(res.data);
       toast.success(res.data.message);
       setPosting(false);
@@ -72,11 +75,11 @@ const Page = () => {
 
         <div>
           <Label htmlFor="content">Content</Label>
-          <Textarea
-            {...register("content")}
-            className="border p-2 mt-1 w-full border-black focus:outline-none focus:shadow-none"
-            rows={6}
-            id="content"
+          <TiptapEditor
+            content={watch("content") || ""}
+            onChange={(html: string) =>
+              setValue("content", html, { shouldValidate: true })
+            }
           />
           {errors.content && (
             <p className="text-red-500">{errors.content.message}</p>
