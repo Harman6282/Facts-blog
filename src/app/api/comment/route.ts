@@ -49,6 +49,16 @@ export const GET = async (req: NextRequest) => {
       where: {
         blogId,
       },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+
       orderBy:{
         createdAt:"desc"
       }

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { toast } from "sonner";
+import Image from "next/image";
 
 interface Comment {
   id: string;
@@ -18,6 +19,11 @@ interface Comment {
   blogId: string;
   authorId: string;
   createdAt: string;
+  author: {
+    id: string;
+    name: string;
+    image: string;
+  };
 }
 
 export default function CommentDialog({
@@ -48,7 +54,7 @@ export default function CommentDialog({
       `${process.env.NEXT_PUBLIC_API_URL}/api/comment?blogId=${blogId}`
     );
     setComments(res.data.comments);
-    console.log(res.data);
+    console.log(res.data.comments);
     setLoading(false);
   };
 
@@ -59,7 +65,7 @@ export default function CommentDialog({
         `${process.env.NEXT_PUBLIC_API_URL}/api/comment`,
         { text: comment, blogId, authorId }
       );
-      setComments((prev) => [ res.data.comment ,...prev]);
+      setComments((prev) => [res.data.comment, ...prev]);
       setComment("");
       console.log(res.data);
     } catch (error) {
@@ -86,10 +92,24 @@ export default function CommentDialog({
             ) : comments ? (
               comments.map((c) => (
                 <div key={c.id} className="border rounded-xl p-3 bg-muted">
-                  <p className="text-sm">{c.text}</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {new Date(c.createdAt).toLocaleString()}
-                  </p>
+                  <div className="flex gap-2 items-start pb-2">
+                    <Image
+                      className="rounded-full"
+                      src={c.author.image}
+                      alt="author image"
+                      width={26}
+                      height={26}
+                    />
+
+                    <div>
+                      <p>{c.author.name}</p>
+
+                      <p className="text-sm">{c.text}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {new Date(c.createdAt).toDateString()}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (
