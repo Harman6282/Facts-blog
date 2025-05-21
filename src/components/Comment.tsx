@@ -1,44 +1,72 @@
-// components/CommentDialog.tsx
-
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { toast } from "sonner";
 
 interface Comment {
-  _id: string
-  text: string
-  createdAt: string
+  id: string;
+  text: string;
+  blogId: string;
+  authorId: string;
+  createdAt: string;
 }
 
-export default function CommentDialog({ blogId , isCommentsOpen, setIsCommentsOpen }: { blogId: string; isCommentsOpen: boolean; setIsCommentsOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const [comment, setComment] = useState("")
-  const [comments, setComments] = useState<Comment[]>([])
-  const [loading, setLoading] = useState(false)
+export default function CommentDialog({
+  blogId,
+  isCommentsOpen,
+  setIsCommentsOpen,
+  authorId,
+}: {
+  blogId: string;
+  isCommentsOpen: boolean;
+  setIsCommentsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  authorId: string;
+}) {
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // Fetch comments on open
   useEffect(() => {
     if (isCommentsOpen) {
-      fetchComments()
+      fetchComments();
     }
-  }, [isCommentsOpen])
+  }, [isCommentsOpen]);
 
   const fetchComments = async () => {
-    // setLoading(true)
-   
-    // setLoading(false)
-  }
+    setLoading(true);
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/comment?blogId=${blogId}`
+    );
+    setComments(res.data.comments);
+    console.log(res.data);
+    setLoading(false);
+  };
 
   const handleSubmit = async () => {
-    if (!comment.trim()) return
-  
-  }
+    console.log("posted");
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/comment`,
+        { text: comment, blogId, authorId }
+      );
+      setComments((prev) => [ res.data.comment ,...prev]);
+      setComment("");
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to post comment");
+    }
+  };
 
   return (
     <>
@@ -46,15 +74,18 @@ export default function CommentDialog({ blogId , isCommentsOpen, setIsCommentsOp
         <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle>Comments</DialogTitle>
+            <DialogDescription>
+              Read what others have said and share your thoughts.
+            </DialogDescription>
           </DialogHeader>
 
           {/* Comments List */}
           <div className="flex-1 overflow-y-auto space-y-4 pr-2">
             {loading ? (
               <p className="text-muted-foreground">Loading comments...</p>
-            ) : comments.length > 0 ? (
+            ) : comments ? (
               comments.map((c) => (
-                <div key={c._id} className="border rounded-xl p-3 bg-muted">
+                <div key={c.id} className="border rounded-xl p-3 bg-muted">
                   <p className="text-sm">{c.text}</p>
                   <p className="text-xs text-gray-500 mt-1">
                     {new Date(c.createdAt).toLocaleString()}
@@ -75,12 +106,16 @@ export default function CommentDialog({ blogId , isCommentsOpen, setIsCommentsOp
               rows={3}
             />
             <DialogFooter>
-              <Button variant="ghost" onClick={() => setIsCommentsOpen(false)}>Cancel</Button>
-              <Button onClick={handleSubmit} disabled={!comment.trim()}>Post Comment</Button>
+              <Button variant="ghost" onClick={() => setIsCommentsOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit} disabled={!comment}>
+                Post Comment
+              </Button>
             </DialogFooter>
           </div>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

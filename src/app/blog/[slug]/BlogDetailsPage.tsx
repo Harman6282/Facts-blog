@@ -111,7 +111,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
                 className="cursor-pointer"
                 onClick={() => setIsCommentsOpen(!isCommentsOpen)}
               />
-              {blog?.comments?.length || 0}
+              {blog?._count?.comments || 0}
             </p>
           </div>
 
@@ -133,6 +133,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
           blogId={blog?.id as string}
           isCommentsOpen={isCommentsOpen}
           setIsCommentsOpen={setIsCommentsOpen}
+          authorId={userId as string}
         />
       </>
     )

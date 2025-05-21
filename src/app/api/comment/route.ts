@@ -35,12 +35,23 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async (req: NextRequest) => {
   try {
-    const blogId = await req.json();
+    const { searchParams } = new URL(req.url);
+    const blogId = searchParams.get("blogId");
+
+    if (!blogId) {
+      return NextResponse.json(
+        { success: false, message: "Missing blogId" },
+        { status: 400 }
+      );
+    }
 
     const comments = await prisma.comment.findMany({
       where: {
         blogId,
       },
+      orderBy:{
+        createdAt:"desc"
+      }
     });
 
     return NextResponse.json({
