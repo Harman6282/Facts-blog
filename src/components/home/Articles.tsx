@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import ArticlesShimmer from "../shimmer/ArticlesShimmer";
+import DOMPurify from "dompurify";
 
 type Author = {
   id: string;
@@ -85,7 +86,12 @@ const Articles = () => {
                 {blog.title}
               </h2>
 
-              <p className="text-gray-600 line-clamp-2">{blog.content}</p>
+              <div
+                className="prose max-w-none text-gray-700 py-5 line-clamp-1"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(blog.content),
+                }}
+              />
               <div className="text-sm text-gray-500 mt-3 flex items-center gap-4">
                 <span>
                   {" "}

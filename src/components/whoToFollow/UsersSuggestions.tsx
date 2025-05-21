@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import SuggentionCard from "./SuggetionCart";
+import SuggentionCard from "./SuggetionCard";
 import { useEffect, useState } from "react";
 
 type userData = {
@@ -25,7 +25,8 @@ const UsersSuggestions = () => {
   }, []);
 
   return (
-    <>
+    <div className="border-l h-screen">
+      
       {users?.map((user: userData) => (
         <SuggentionCard
           key={user.name}
@@ -34,7 +35,7 @@ const UsersSuggestions = () => {
           bio={user.bio}
         />
       ))}
-    </>
+    </div>
   );
 };
 
