@@ -25,7 +25,7 @@ const UsersSuggestions = () => {
   }, []);
 
   return (
-    <div className="border-l h-screen">
+    <div className="border-l  h-screen">
       
       {users?.map((user: userData) => (
         <SuggentionCard

@@ -19,9 +19,6 @@ type Article = {
   slug: string;
   content: string;
   imageUrl: string;
-  likes: string[];
-  comments: string[];
-  tags: string[];
   isPublished: boolean;
   authorId: string;
   author: Author;
