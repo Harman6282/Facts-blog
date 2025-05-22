@@ -115,12 +115,14 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
             </p>
           </div>
 
-          <Image
-            src={blog?.imageUrl}
-            alt="blog image"
-            width={750}
-            height={400}
-          />
+          {blog.imageUrl && (
+            <Image
+              src={blog?.imageUrl}
+              alt="blog image"
+              width={750}
+              height={400}
+            />
+          )}
 
           <div
             className="prose max-w-none text-gray-700 py-5"
