@@ -10,18 +10,13 @@ const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user;
 
-
-  const handleSearch = (query: string) => {
-    console.log("Search query:", query);
-  }
-
   return (
     <nav className="w-full bg-white shadow px-4 py-3 flex items-center justify-between">
       <Link href="/" className="text-3xl font-bold cursor-pointer">
         Facts
       </Link>
 
-      <Searchbar onSearch={handleSearch} />
+      <Searchbar  />
 
       {user ? (
         <RightSidebar />

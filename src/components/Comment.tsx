@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { toast } from "sonner";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface Comment {
   id: string;
@@ -41,6 +43,9 @@ export default function CommentDialog({
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const session = useSession();
+  const user = session.data?.user;
+
   // Fetch comments on open
   useEffect(() => {
     if (isCommentsOpen) {
@@ -58,8 +63,16 @@ export default function CommentDialog({
     setLoading(false);
   };
 
+
+
   const handleSubmit = async () => {
-    console.log("posted");
+    if (!user?.id)
+          return toast.error("You must be logged in to comment", {
+            action: {
+              label: "Sign in",
+              onClick: () => redirect("/signin"),
+            },
+          });
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/comment`,
@@ -103,7 +116,6 @@ export default function CommentDialog({
 
                     <div>
                       <p>{c.author.name}</p>
-
                       <p className="text-sm">{c.text}</p>
                       <p className="text-xs text-gray-500 mt-1">
                         {new Date(c.createdAt).toDateString()}

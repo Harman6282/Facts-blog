@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Heart, Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -18,12 +20,26 @@ const LikeButton = ({
   const [likesCount, setlikesCount] = useState<number>(likeCount);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const session = useSession();
+  const user = session.data?.user;
+
   const toggleLike = async () => {
+    if (!user?.id)
+      return toast.error("You must be logged in to like a blog", {
+        action: {
+          label: "Sign in",
+          onClick: () => redirect("/signin"),
+        },
+      });
+
     setIsLoading(true);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/likeBlog`, {
-      userId,
-      blogId,
-    });
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/likeBlog`,
+      {
+        userId,
+        blogId,
+      }
+    );
 
     setIsLoading(false);
     console.log(res.data);

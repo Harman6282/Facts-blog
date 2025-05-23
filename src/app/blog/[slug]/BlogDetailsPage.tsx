@@ -52,6 +52,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
       setBlog(res.data.blog);
       setIsLoading(false);
       setInitiallyLiked(res?.data?.blog?._count?.likes);
+      if (!session?.user) setInitiallyLiked(false);
       console.log(res.data.blog);
     } catch (error) {
       console.log(error);

@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator"
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t bg-background">
+    <footer className="w-full border-t mt-15 bg-background">
       <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         
         {/* Left side: Copyright */}

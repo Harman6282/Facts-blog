@@ -5,6 +5,8 @@ import axios from "axios";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface FollowButtonProps {
   currentUserId: string;
@@ -22,10 +24,21 @@ export const FollowButton = ({
   const [isFollowing, setIsFollowing] = useState(initiallyFollowing);
   const [loading, setLoading] = useState(false);
 
+  const session = useSession();
+  const user = session.data?.user;
+
   const handleFollowToggle = async () => {
     if (!setFollowersCount) return;
     setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1));
     try {
+      if (!user?.id)
+        return toast.error("You must be logged in to like a blog", {
+          action: {
+            label: "Sign in",
+            onClick: () => redirect("/signin"),
+          },
+        });
+
       setLoading(true);
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/follow`,
