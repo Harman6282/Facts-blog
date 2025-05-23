@@ -104,8 +104,8 @@ export default function CommentDialog({
               <p className="text-muted-foreground">Loading comments...</p>
             ) : comments ? (
               comments.map((c) => (
-                <div key={c.id} className="border rounded-xl p-3 bg-muted">
-                  <div className="flex gap-2 items-start pb-2">
+                <div key={c.id} className=" border-b p-3 ">
+                  <div className="flex gap-2 items-start">
                     <Image
                       className="rounded-full"
                       src={c.author.image}
@@ -141,7 +141,7 @@ export default function CommentDialog({
               <Button variant="ghost" onClick={() => setIsCommentsOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={handleSubmit} disabled={!comment}>
+              <Button className="cursor-pointer" onClick={handleSubmit} disabled={!comment}>
                 Post Comment
               </Button>
             </DialogFooter>
