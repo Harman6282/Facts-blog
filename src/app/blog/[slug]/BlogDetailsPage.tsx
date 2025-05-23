@@ -2,13 +2,15 @@
 import LikeButton from "@/components/LikeButton";
 import BlogDetailsShimmer from "@/components/shimmer/BlogDetailsShimmer";
 import axios from "axios";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import CommentDialog from "@/components/Comment";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Author = {
   id: string;
@@ -43,6 +45,8 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
+  const router = useRouter();
+
   const fetchBlog = async () => {
     try {
       const res = await axios.get(
@@ -59,6 +63,19 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${blog?.slug}`
+      );
+      toast.success("Blog deleted successfully");
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete blog");
+    }
+  };
+
   useEffect(() => {
     fetchBlog();
   }, [slug]);
@@ -69,9 +86,19 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
     blog && (
       <>
         <div className="w-full lg:w-2/3 mx-auto px-6 md:px-10 mt-6">
-          <h1 className="text-4xl lg:text-[42px] font-bold mb-4 text-[#242424]">
-            {blog?.title}
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-4xl lg:text-[42px] font-bold mb-4 text-[#242424]">
+              {blog?.title}
+            </h1>
+            {session?.user?.id === blog?.author?.id && (
+              <button
+                onClick={handleDelete}
+                className="text-red-500 text-sm hover:underline ml-4  cursor-pointer"
+              >
+                <Trash2 size={20} />
+              </button>
+            )}
+          </div>
           <p className="text-md inline-block my-2 text-gray-500 ">
             <Link
               href={`/profile/${blog?.author?.id}`}

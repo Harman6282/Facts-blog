@@ -54,6 +54,7 @@ const Page = () => {
       toast.success(res.data.message);
       setPosting(false);
       reset();
+      redirect("/");
     } catch (error) {
       console.log(error);
       toast.error("Failed to create blog");

@@ -10,7 +10,7 @@ export async function GET(
 
     const blog = await prisma.blog.findFirst({
       where: { slug: slug },
-       include: {
+      include: {
         author: {
           select: {
             id: true,
@@ -21,11 +21,11 @@ export async function GET(
           },
         },
         _count: {
-          select:{
+          select: {
             likes: true,
-            comments: true
-          }
-        }
+            comments: true,
+          },
+        },
       },
     });
 
@@ -49,32 +49,32 @@ export async function GET(
   }
 }
 
-// export async function DELETE(
-//   req: Request,
-//   { params }: { params: Promise<{ id: string }> }
-// ) {
-//   const blogId = (await params).id;
-//   try {
-//     const blog = await prisma.blog.delete({
-//       where: { id: blogId },
-//     });
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const slug = (await params).slug;
+  try {
+    const blog = await prisma.blog.delete({
+      where: { slug },
+    });
 
-//     if (!blog) {
-//       return NextResponse.json(
-//         { success: false, message: "Blog not found" },
-//         { status: 404 }
-//       );
-//     }
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Blog not found" },
+        { status: 404 }
+      );
+    }
 
-//     return NextResponse.json(
-//       { success: true, message: "Blog deleted successfully" },
-//       { status: 200 }
-//     );
-//   } catch (error) {
-//     console.error("Error deleting blog:", error);
-//     return NextResponse.json(
-//       { success: false, message: "Failed to delete blog" },
-//       { status: 500 }
-//     );
-//   }
-// }
+    return NextResponse.json(
+      { success: true, message: "Blog deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to delete blog" },
+      { status: 500 }
+    );
+  }
+}

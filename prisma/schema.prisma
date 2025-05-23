@@ -110,8 +110,8 @@ model Comment {
   blogId   String
   authorId String
 
-  blog   Blog @relation(fields: [blogId], references: [id])
-  author User @relation(fields: [authorId], references: [id])
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -122,8 +122,8 @@ model Like {
   userId String
   blogId String
 
-  user User @relation(fields: [userId], references: [id])
-  blog Blog @relation(fields: [blogId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 

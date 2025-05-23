@@ -64,7 +64,7 @@ const Articles = () => {
         <p className="text-center text-gray-500">No results for “{query}”.</p>
       )}
 
-      {articles.map((blog) => (
+      {articles?.map((blog) => (
         <div key={blog.id}>
           <Article
             authorId={blog.authorId}
