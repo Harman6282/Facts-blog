@@ -41,7 +41,6 @@ export default function RightSidebar() {
 
           {/* Sidebar Content */}
           <DrawerContent className="p-6 flex flex-col items-center space-y-4">
-            <h2 className="text-xl font-semibold">Sidebar</h2>
             <DialogTitle className="sr-only">Sidebar Menu</DialogTitle>
 
             <Link href={`/profile/${user?.id}`} className=" w-full">

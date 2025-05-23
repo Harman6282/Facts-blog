@@ -30,12 +30,17 @@ const Searchbar = () => {
         onKeyDown={handleKeyDown}
         className="w-1/2 px-4 py-2 border border-black rounded-full focus:outline-none"
       />
-      <Button
-        className="p-5 text-white rounded-full cursor-pointer"
-        onClick={handleSearch}
-      >
-        <SearchIcon size={24} />
-      </Button>
+      {
+        query && (
+          <Button
+            className="p-5 text-white rounded-full cursor-pointer"
+            onClick={() => setQuery("")}
+          >
+            <SearchIcon size={24} />
+          </Button>
+        )
+      }
+      
     </div>
   );
 };
