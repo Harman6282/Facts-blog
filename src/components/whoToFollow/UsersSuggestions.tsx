@@ -4,6 +4,7 @@ import SuggentionCard from "./SuggetionCard";
 import { useEffect, useState } from "react";
 
 type userData = {
+  id: string;
   name: string;
   image: string;
   bio: string;
@@ -30,6 +31,7 @@ const UsersSuggestions = () => {
       {users?.map((user: userData) => (
         <SuggentionCard
           key={user.name}
+          id={user.id}
           name={user.name}
           image={user.image}
           bio={user.bio}

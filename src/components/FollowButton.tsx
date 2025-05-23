@@ -28,8 +28,9 @@ export const FollowButton = ({
   const user = session.data?.user;
 
   const handleFollowToggle = async () => {
-    if (!setFollowersCount) return;
-    setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1));
+    if (setFollowersCount) {
+      setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1));
+    }
     try {
       if (!user?.id)
         return toast.error("You must be logged in to like a blog", {
