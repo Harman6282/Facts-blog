@@ -49,7 +49,7 @@ const Article = ({
           </Link>
         </p>
         <Link href={`/blog/${slug}`}>
-          <h2 className="text-2xl font-bold cursor-pointer hover:underline ">
+          <h2 className="text-lg md:text-2xl font-bold cursor-pointer hover:underline ">
             {title}
           </h2>
 
@@ -83,7 +83,7 @@ const Article = ({
 
       {imageUrl && (
         <Link href={`/blog/${slug}`}>
-          <Image src={imageUrl} alt="blog Img" className="pt-10" width={160} height={107} />
+          <Image src={imageUrl} alt="blog Img" className="pt-10 " width={130} height={10} />
         </Link>
       )}
     </div>
