@@ -63,22 +63,20 @@ export default function CommentDialog({
     setLoading(false);
   };
 
-
-
   const handleSubmit = async () => {
     if (!user?.id)
-          return toast.error("You must be logged in to comment", {
-            action: {
-              label: "Sign in",
-              onClick: () => redirect("/signin"),
-            },
-          });
+      return toast.error("You must be logged in to comment", {
+        action: {
+          label: "Sign in",
+          onClick: () => redirect("/signin"),
+        },
+      });
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/comment`,
         { text: comment, blogId, authorId }
       );
-      setComments((prev) => [res.data.comment, ...prev]);
+      fetchComments();
       setComment("");
       console.log(res.data);
     } catch (error) {
@@ -141,7 +139,11 @@ export default function CommentDialog({
               <Button variant="ghost" onClick={() => setIsCommentsOpen(false)}>
                 Cancel
               </Button>
-              <Button className="cursor-pointer" onClick={handleSubmit} disabled={!comment}>
+              <Button
+                className="cursor-pointer"
+                onClick={handleSubmit}
+                disabled={!comment}
+              >
                 Post Comment
               </Button>
             </DialogFooter>
