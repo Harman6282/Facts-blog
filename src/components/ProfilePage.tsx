@@ -32,7 +32,9 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const currentUserId = session?.user?.id;
 
   const getUser = async () => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${userId}`);
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/user/${userId}`
+    );
     setUser(res?.data?.user);
     console.log(res?.data?.user);
     setFollowersCount(res?.data?.user._count.followers);
@@ -40,12 +42,15 @@ const ProfilePage = ({ userId }: { userId: string }) => {
 
   const checkFollowStatus = async () => {
     if (!currentUserId || !userId) return;
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/status`, {
-      params: {
-        currentUserId,
-        targetUserId: userId,
-      },
-    });
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/follow/status`,
+      {
+        params: {
+          currentUserId,
+          targetUserId: userId,
+        },
+      }
+    );
     setInitiallyFollowing(res.data.isFollowing);
   };
 
@@ -89,13 +94,18 @@ const ProfilePage = ({ userId }: { userId: string }) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-1 text-base">
-          <p className="  pl-15 font-bold "> {followersCount} <span className="text-gray-700 font-normal">Followers</span></p>
-           <p className="text-gray-700 flex items-center pl-8 gap-2"> <CalendarRange size={20} /> Joined {joinedDate}</p>
+          <p className="  pl-15 font-bold ">
+            {" "}
+            {followersCount}{" "}
+            <span className="text-gray-700 font-normal">Followers</span>
+          </p>
+          <p className="text-gray-700 flex items-center pl-8 gap-2">
+            {" "}
+            <CalendarRange size={20} /> Joined {joinedDate}
+          </p>
         </div>
         <p className="text-gray-700 pt-5">{user?.bio}</p>
       </div>
-
-      
     </div>
   );
 };

@@ -28,7 +28,7 @@ const Article = ({
   commentCount: number;
 }) => {
   return (
-    <div className="flex items-start justify-between">
+    <div className="flex items-start justify-between ">
       <div className={imageUrl ? "w-3/4" : "w-full"}>
         <p className="text-sm inline-block mb-2 text-gray-500 ">
           <Link
@@ -83,7 +83,13 @@ const Article = ({
 
       {imageUrl && (
         <Link href={`/blog/${slug}`}>
-          <Image src={imageUrl} alt="blog Img" className="pt-10 " width={130} height={10} />
+          <Image
+            src={imageUrl}
+            alt="blog Img"
+            className="pt-10 "
+            width={130}
+            height={10}
+          />
         </Link>
       )}
     </div>

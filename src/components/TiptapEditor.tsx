@@ -15,11 +15,7 @@ export default function TipTapEditor({
   onChange: (html: string) => void;
 }) {
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image,
-      Link.configure({ openOnClick: false }),
-    ],
+    extensions: [StarterKit, Image, Link.configure({ openOnClick: false })],
     content,
     onUpdate({ editor }) {
       onChange(editor.getHTML());
@@ -33,35 +29,41 @@ export default function TipTapEditor({
       <div className="flex flex-wrap gap-2">
         <Button
           variant="outline"
-           type="button" 
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "bg-black text-white" : ""}
         >
-         <Bold />
+          <Bold />
         </Button>
         <Button
           variant="outline"
-           type="button" 
+          type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "bg-black text-white" : ""}
         >
-         <Italic /> 
+          <Italic />
         </Button>
         <Button
           variant="outline"
-           type="button" 
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "bg-black text-white" : ""}
         >
-         <List /> 
+          <List />
         </Button>
         <Button
           variant="outline"
-           type="button" 
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          className={editor.isActive("heading", { level: 2 }) ? "bg-black text-white" : ""}
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className={
+            editor.isActive("heading", { level: 2 })
+              ? "bg-black text-white"
+              : ""
+          }
         >
-         <Heading2 /> 
+          <Heading2 />
         </Button>
       </div>
 

@@ -39,7 +39,12 @@ export default function FileUpload({
         className="file-input xl:w-1/2 file-input-bordered border border-black rounded-sm px-2 w-full cursor-pointer"
         validateFile={(file: File) => {
           // Validate file type and size
-          const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg" ];
+          const validTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/jpg",
+          ];
           if (!validTypes.includes(file.type)) {
             setError("Please upload a valid image file (JPEG, PNG, or WebP)");
             return false;
