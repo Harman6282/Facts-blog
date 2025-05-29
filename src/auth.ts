@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { JWT } from "next-auth/jwt";
 import { NextAuthOptions, Session, User } from "next-auth";
 
-export const authOptions : NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
   providers: [
@@ -33,7 +33,7 @@ export const authOptions : NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  pages:{
+  pages: {
     signIn: "/signin",
-  }
+  },
 };
