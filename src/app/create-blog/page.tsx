@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BlogFormData, blogSchema } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
@@ -17,8 +17,9 @@ import TipTapEditor from "@/components/TiptapEditor";
 
 const Page = () => {
   const { status } = useSession();
+  const router = useRouter();
   if (status === "unauthenticated") {
-    redirect("/");
+    router.push("/");
   }
   const [posting, setPosting] = useState(false);
   const [editorContent, setEditorContent] = useState("");
@@ -54,7 +55,7 @@ const Page = () => {
       toast.success(res.data.message);
       setPosting(false);
       reset();
-      redirect("/");
+      router.push("/");
     } catch (error) {
       console.log(error);
       toast.error("Failed to create blog");
