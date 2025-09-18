@@ -54,7 +54,7 @@ const Article = ({
           </h2>
 
           <div
-            className="prose max-w-none text-gray-700 py-5 line-clamp-1"
+            className="max-w-none text-gray-700 py-5 line-clamp-1"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(content),
             }}
