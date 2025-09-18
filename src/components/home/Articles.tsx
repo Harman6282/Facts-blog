@@ -40,8 +40,8 @@ const Articles = () => {
       setLoading(true);
       try {
         const endpoint = query
-          ? `${process.env.NEXT_PUBLIC_API_URL}/api/search?q=${query}`
-          : `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`;
+          ? `/api/search?q=${query}`
+          : `api/blogs`;
 
         const res = await axios.get(endpoint);
         setArticles(res.data.blogs);

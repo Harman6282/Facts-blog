@@ -33,7 +33,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
 
   const getUser = async () => {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/user/${userId}`
+      `/api/user/${userId}`
     );
     setUser(res?.data?.user);
     console.log(res?.data?.user);
@@ -43,7 +43,7 @@ const ProfilePage = ({ userId }: { userId: string }) => {
   const checkFollowStatus = async () => {
     if (!currentUserId || !userId) return;
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/follow/status`,
+      `/api/follow/status`,
       {
         params: {
           currentUserId,

@@ -15,7 +15,7 @@ const UsersSuggestions = () => {
 
   const getUsers = async () => {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getAllUsers`
+      `/api/getAllUsers`
     );
     console.log(res.data.users);
     setUsers(res?.data?.users);

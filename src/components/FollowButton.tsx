@@ -42,7 +42,7 @@ export const FollowButton = ({
 
       setLoading(true);
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/follow`,
+        `/api/follow`,
         {
           currentUserId,
           targetUserId,

@@ -47,7 +47,7 @@ const Page = () => {
     try {
       setPosting(true);
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`,
+        `/api/blogs`,
         data
       );
       console.log(res.data);

@@ -50,7 +50,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const fetchBlog = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`
+        `/api/blogs/${slug}`
       );
 
       setBlog(res.data.blog);
@@ -66,7 +66,7 @@ const BlogDetailsPage = ({ slug }: { slug: string }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${blog?.slug}`
+        `/api/blogs/${blog?.slug}`
       );
       toast.success("Blog deleted successfully");
       router.push("/");

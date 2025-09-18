@@ -56,7 +56,7 @@ export default function CommentDialog({
   const fetchComments = async () => {
     setLoading(true);
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/comment?blogId=${blogId}`
+      `/api/comment?blogId=${blogId}`
     );
     setComments(res.data.comments);
     console.log(res.data.comments);
@@ -73,7 +73,7 @@ export default function CommentDialog({
       });
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/comment`,
+        `/api/comment`,
         { text: comment, blogId, authorId }
       );
       fetchComments();
